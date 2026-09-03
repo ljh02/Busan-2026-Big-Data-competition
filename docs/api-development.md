@@ -1,11 +1,11 @@
-# MoveValue API 개발 메모
+# BalueWave API 개발 메모
 
 ## 현재 구현
 
-MoveValue는 웹 화면과 추천 계산 API를 같은 Python 서버에서 제공한다. 외부 패키지 없이 실행되므로 공모전 심사·데모 환경에서 재현성이 높다.
+BalueWave는 웹 화면과 추천 계산 API를 같은 Python 서버에서 제공한다. 외부 패키지 없이 실행되므로 공모전 심사·데모 환경에서 재현성이 높다.
 
 ```bash
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 접속 URL은 `http://127.0.0.1:5173/`이다.
@@ -19,7 +19,7 @@ export TMAP_APP_KEY="TMAP 대중교통 appKey"
 export TMAP_GENERAL_APP_KEY="TMAP 일반 appKey"
 export SEOUL_OPEN_API_KEY="서울 열린데이터광장 인증키"
 export MOLIT_SERVICE_KEY="공공데이터포털 일반 인증키"
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 실제 키가 주입됐는지, 어느 항목이 live API이고 어느 항목이 폴백인지 한 번에 확인하는 검증 스크립트도 제공한다. 이 스크립트는 키 값을 출력하지 않는다.
@@ -31,7 +31,7 @@ KAKAO_REST_API_KEY=... ODSAY_API_KEY=... TMAP_APP_KEY=... TMAP_GENERAL_APP_KEY=.
 
 ## 데이터 파이프라인
 
-`scripts/build_real_dataset.py`는 서울시 열린데이터광장의 `서울시 부동산 전월세가 정보` 2025년 파일을 내려받고, 15~85㎡ 거래를 생활권 법정동 기준으로 집계한다. 통근시간, 생활 SOC, 안전·환경은 `scripts/movevalue_adapters.py`의 어댑터가 채운다.
+`scripts/build_real_dataset.py`는 서울시 열린데이터광장의 `서울시 부동산 전월세가 정보` 2025년 파일을 내려받고, 15~85㎡ 거래를 생활권 법정동 기준으로 집계한다. 통근시간, 생활 SOC, 안전·환경은 `scripts/baluewave_adapters.py`의 어댑터가 채운다.
 
 ```bash
 python3 scripts/build_real_dataset.py
@@ -39,7 +39,7 @@ python3 scripts/build_real_dataset.py
 
 산출물은 `data/areas.actual.json`이며, 원천 ZIP은 `data/raw/`에 보관한다. `data/raw/`는 용량과 원천 데이터 재배포 이슈를 줄이기 위해 Git에서 제외한다.
 
-통근시간은 `ODSAY_API_KEY` 또는 `MOVEVALUE_ODSAY_API_KEY`가 설정되어 있으면 대중교통 경로 API를 호출하고, 키가 없거나 호출이 실패한 목적지는 기존 검증 테이블로 폴백한다.
+통근시간은 `ODSAY_API_KEY` 또는 `BALUEWAVE_ODSAY_API_KEY`가 설정되어 있으면 대중교통 경로 API를 호출하고, 키가 없거나 호출이 실패한 목적지는 기존 검증 테이블로 폴백한다.
 
 ```bash
 ODSAY_API_KEY=발급키 python3 scripts/build_real_dataset.py
@@ -117,7 +117,7 @@ curl 'http://127.0.0.1:5173/api/recommendations?budget=70&destination=gangnam&pe
 
 - 후보 생활권명·역명·목적지명·대표 주소는 로컬 데이터에서 즉시 매칭한다.
 - 좌표 문자열은 API 키 없이 파싱한다.
-- 사용자가 입력한 상세 주소는 `KAKAO_REST_API_KEY` 또는 `MOVEVALUE_KAKAO_REST_API_KEY`가 있을 때 Kakao Local API로 변환한다.
+- 사용자가 입력한 상세 주소는 `KAKAO_REST_API_KEY` 또는 `BALUEWAVE_KAKAO_REST_API_KEY`가 있을 때 Kakao Local API로 변환한다.
 
 예시:
 

@@ -3,8 +3,8 @@ const MATCH_RESULT_LIMIT = 10;
 const SEOUL_CENTER = [37.5665, 126.9780];
 const SEOUL_OVERVIEW_ZOOM = 12;
 const DISTRICT_CLUSTER_MAX_ZOOM = 13;
-const BOOKMARK_STORAGE_KEY = "movevalue-apartment-bookmarks";
-const SIDEBAR_WIDTH_STORAGE_KEY = "movevalue-sidebar-width-v3";
+const BOOKMARK_STORAGE_KEY = "baluewave-apartment-bookmarks";
+const SIDEBAR_WIDTH_STORAGE_KEY = "baluewave-sidebar-width-v3";
 const SIDEBAR_MIN_WIDTH = 360;
 const SIDEBAR_MAX_WIDTH = 620;
 const DEFAULT_ROUTE_TRANSPORT_MODE = "car";
@@ -1467,7 +1467,7 @@ function routeModeColor(step = {}) {
   if (key === "bus") return "#386DE8";
   if (key === "walk") return "#64748B";
   if (key === "rail") return "#6D5DFC";
-  return "#03C75A";
+  return "#0087CD";
 }
 
 function routeModeIcon(mode = "") {
@@ -1767,7 +1767,7 @@ function drawRouteLine(bounds) {
     radius: 7,
     color: "#ffffff",
     weight: 2,
-    fillColor: "#03C75A",
+    fillColor: "#0087CD",
     fillOpacity: 1
   }).bindTooltip(route.origin.label || "출발지", { direction: "top" }).addTo(state.map.routeLayer);
 
@@ -3753,7 +3753,7 @@ function bindAgentThreadEvents() {
   });
 }
 
-const SUBPANEL_WIDTH_KEY = "movevalue-subpanel-width";
+const SUBPANEL_WIDTH_KEY = "baluewave-subpanel-width";
 const SUBPANEL_MIN_WIDTH = 420;
 
 // 사이드바와 지도가 각각 최소 폭을 유지하도록 상한을 화면에서 계산한다.
@@ -4661,7 +4661,7 @@ function shouldCondenseRouteSteps(route = {}) {
 function renderRouteEndpointSteps(route) {
   return `
     <ol class="route-steps">
-      <li style="--route-color:#03C75A">
+      <li style="--route-color:#0087CD">
         <span class="route-mode">S</span>
         <strong>출발지</strong>
         <span>${escapeHtml(route.origin?.label || "출발지")}</span>

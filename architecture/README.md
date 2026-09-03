@@ -1,6 +1,6 @@
-# MoveValue Architecture
+# BalueWave Architecture
 
-이 폴더는 MoveValue의 시스템 아키텍처, 데이터 흐름, 사용자 플로우, API 시퀀스, 배포·보안 기준을 분리해서 정리한다. 공모전 제출·발표·후속 개발자가 같은 구조를 기준으로 설명하고 확장할 수 있도록 Mermaid 다이어그램과 구현 파일 연결을 함께 둔다.
+이 폴더는 BalueWave의 시스템 아키텍처, 데이터 흐름, 사용자 플로우, API 시퀀스, 배포·보안 기준을 분리해서 정리한다. 공모전 제출·발표·후속 개발자가 같은 구조를 기준으로 설명하고 확장할 수 있도록 Mermaid 다이어그램과 구현 파일 연결을 함께 둔다.
 
 ## 문서 목차
 
@@ -15,11 +15,11 @@
 ## 현재 구현 기준
 
 - 웹: [app/index.html](../app/index.html), [app/app.js](../app/app.js), [app/styles.css](../app/styles.css)
-- API 서버: [api/movevalue_api.py](../api/movevalue_api.py)
+- API 서버: [api/baluewave_api.py](../api/baluewave_api.py)
 - 경로·주소 어댑터: [api/route_adapters.py](../api/route_adapters.py)
 - 아파트 지도 레이어: [api/apartment_adapters.py](../api/apartment_adapters.py)
 - 부동산 상세/AI 모델: [api/property_model.py](../api/property_model.py), [api/property_adapters.py](../api/property_adapters.py)
-- 데이터셋 생성: [scripts/build_real_dataset.py](../scripts/build_real_dataset.py), [scripts/movevalue_adapters.py](../scripts/movevalue_adapters.py), [scripts/build_apartment_snapshot.py](../scripts/build_apartment_snapshot.py)
+- 데이터셋 생성: [scripts/build_real_dataset.py](../scripts/build_real_dataset.py), [scripts/baluewave_adapters.py](../scripts/baluewave_adapters.py), [scripts/build_apartment_snapshot.py](../scripts/build_apartment_snapshot.py)
 - 런타임 데이터: [data/areas.actual.json](../data/areas.actual.json), [data/apartments.seoul.snapshot.json](../data/apartments.seoul.snapshot.json)
 
 ## 아키텍처 원칙
@@ -34,7 +34,7 @@
 
 ```mermaid
 flowchart LR
-    User["사용자"] --> Browser["MoveValue Web Dashboard"]
+    User["사용자"] --> Browser["BalueWave Web Dashboard"]
     Browser --> API["Python API Server"]
     API --> Areas["data/areas.actual.json"]
     API --> Apartments["data/apartments.seoul.snapshot.json"]
@@ -48,4 +48,4 @@ flowchart LR
 
 ## 발표용 핵심 문장
 
-MoveValue는 단순 매물 검색이 아니라 `주거비 + 통근 + 생활 SOC + 안전환경 + 전세 위험 신호`를 통합해 사용자가 "어디에 살지"와 "계약 전 무엇을 확인해야 하는지"를 한 번에 판단하도록 돕는 주거 의사결정 API/웹 플랫폼이다.
+BalueWave는 단순 매물 검색이 아니라 `주거비 + 통근 + 생활 SOC + 안전환경 + 전세 위험 신호`를 통합해 사용자가 "어디에 살지"와 "계약 전 무엇을 확인해야 하는지"를 한 번에 판단하도록 돕는 주거 의사결정 API/웹 플랫폼이다.

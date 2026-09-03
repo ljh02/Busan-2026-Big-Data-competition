@@ -1,4 +1,4 @@
-"""Small .env loader for local MoveValue development.
+"""Small .env loader for local BalueWave development.
 
 The project avoids a runtime dependency on python-dotenv, so optional API keys
 can be loaded from the repository-level .env file with this helper.

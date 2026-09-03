@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""MoveValue API server.
+"""BalueWave API server.
 
 No external runtime dependency is required. The server exposes JSON API routes
 and serves the static web prototype from the same origin.
@@ -1102,7 +1102,7 @@ def select_agent_engine() -> tuple:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "MoveValueAPI/0.1"
+    server_version = "BalueWaveAPI/0.1"
 
     def log_message(self, fmt: str, *args) -> None:
         if not getattr(self.server, "quiet", False):
@@ -1272,7 +1272,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run MoveValue API and web prototype.")
+    parser = argparse.ArgumentParser(description="Run BalueWave API and web prototype.")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=5173)
     parser.add_argument("--quiet", action="store_true")
@@ -1280,7 +1280,7 @@ def main() -> None:
 
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     server.quiet = args.quiet
-    print(f"MoveValue API listening at http://{args.host}:{args.port}/")
+    print(f"BalueWave API listening at http://{args.host}:{args.port}/")
     server.serve_forever()
 
 

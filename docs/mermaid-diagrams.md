@@ -4,11 +4,11 @@
 
 ## 1. 전체 시스템 아키텍처 다이어그램
 
-MoveValue가 사용자, 웹 UI, API 서버, 로컬 데이터, 외부 공공 API를 어떻게 연결하는지 보여준다.
+BalueWave가 사용자, 웹 UI, API 서버, 로컬 데이터, 외부 공공 API를 어떻게 연결하는지 보여준다.
 
 ```mermaid
 flowchart TB
-    User["사용자"] --> Web["MoveValue Web UI"]
+    User["사용자"] --> Web["BalueWave Web UI"]
     Web --> API["Python API Server"]
     API --> Rec["추천 점수 엔진"]
     API --> Property["부동산 상세/위험 모델"]
@@ -170,8 +170,8 @@ flowchart TB
         VWorld["VWorld 지오코딩/용도지역"]
         Transport["전국 도시철도/교통 오픈마켓"]
     end
-    Current --> MoveValue["MoveValue API"]
-    Next --> MoveValue
-    MoveValue --> Web["웹 대시보드"]
-    MoveValue --> Report["정책/B2B 리포트"]
+    Current --> BalueWave["BalueWave API"]
+    Next --> BalueWave
+    BalueWave --> Web["웹 대시보드"]
+    BalueWave --> Report["정책/B2B 리포트"]
 ```

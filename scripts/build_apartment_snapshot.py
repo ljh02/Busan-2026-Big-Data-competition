@@ -24,7 +24,7 @@ load_dotenv()
 OUTPUT_PATH = ROOT / "data" / "apartments.seoul.snapshot.json"
 API_NAME = "OpenAptInfo"
 API_URL = "http://openapi.seoul.go.kr:8088/{key}/json/OpenAptInfo/{start}/{end}/"
-API_KEY_ENVS = ("SEOUL_OPEN_API_KEY", "SEOUL_API_KEY", "MOVEVALUE_SEOUL_OPEN_API_KEY")
+API_KEY_ENVS = ("SEOUL_OPEN_API_KEY", "SEOUL_API_KEY", "BALUEWAVE_SEOUL_OPEN_API_KEY")
 
 
 def api_key() -> str:

@@ -1,4 +1,4 @@
-"""Runtime route and geocoding adapters for MoveValue.
+"""Runtime route and geocoding adapters for BalueWave.
 
 API credentials are read only from environment variables. The app keeps a
 deterministic fallback route so the prototype remains usable without keys.
@@ -26,17 +26,17 @@ KAKAO_ADDRESS_ENDPOINT = "https://dapi.kakao.com/v2/local/search/address.json"
 KAKAO_KEYWORD_ENDPOINT = "https://dapi.kakao.com/v2/local/search/keyword.json"
 
 OD_SAY_KEY_ENV = "ODSAY_API_KEY"
-OD_SAY_ALT_KEY_ENV = "MOVEVALUE_ODSAY_API_KEY"
+OD_SAY_ALT_KEY_ENV = "BALUEWAVE_ODSAY_API_KEY"
 TMAP_KEY_ENV = "TMAP_APP_KEY"
-TMAP_ALT_KEY_ENV = "MOVEVALUE_TMAP_APP_KEY"
+TMAP_ALT_KEY_ENV = "BALUEWAVE_TMAP_APP_KEY"
 TMAP_GENERAL_KEY_ENV = "TMAP_GENERAL_APP_KEY"
-TMAP_GENERAL_ALT_KEY_ENV = "MOVEVALUE_TMAP_GENERAL_APP_KEY"
+TMAP_GENERAL_ALT_KEY_ENV = "BALUEWAVE_TMAP_GENERAL_APP_KEY"
 TMAP_CAR_KEY_ENV = "TMAP_CAR_APP_KEY"
-TMAP_CAR_ALT_KEY_ENV = "MOVEVALUE_TMAP_CAR_APP_KEY"
+TMAP_CAR_ALT_KEY_ENV = "BALUEWAVE_TMAP_CAR_APP_KEY"
 TMAP_WALK_KEY_ENV = "TMAP_WALK_APP_KEY"
-TMAP_WALK_ALT_KEY_ENV = "MOVEVALUE_TMAP_WALK_APP_KEY"
+TMAP_WALK_ALT_KEY_ENV = "BALUEWAVE_TMAP_WALK_APP_KEY"
 KAKAO_KEY_ENV = "KAKAO_REST_API_KEY"
-KAKAO_ALT_KEY_ENV = "MOVEVALUE_KAKAO_REST_API_KEY"
+KAKAO_ALT_KEY_ENV = "BALUEWAVE_KAKAO_REST_API_KEY"
 
 
 def env_key(*names: str) -> str:
@@ -117,7 +117,7 @@ def geocode_with_kakao(query: str) -> dict[str, Any] | None:
     params = urllib.parse.urlencode({"query": query})
     request = urllib.request.Request(
         f"{KAKAO_ADDRESS_ENDPOINT}?{params}",
-        headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "MoveValue/0.1"},
+        headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "BalueWave/0.1"},
     )
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=10) as response:
@@ -182,7 +182,7 @@ def search_locations_with_kakao(query: str, limit: int = 8) -> list[dict[str, An
         params = urllib.parse.urlencode({"query": value, "size": max(1, min(limit, 15))})
         request = urllib.request.Request(
             f"{endpoint}?{params}",
-            headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "MoveValue/0.1"},
+            headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "BalueWave/0.1"},
         )
         try:
             with opener.open(request, timeout=8) as response:
@@ -296,7 +296,7 @@ def resolve_location(query: str, known_locations: dict[str, dict[str, Any]]) -> 
 
 def _request_json(url: str, *, method: str = "GET", headers: dict[str, str] | None = None, body: dict | None = None) -> dict:
     encoded_body = None
-    request_headers = {"User-Agent": "MoveValue/0.1", **(headers or {})}
+    request_headers = {"User-Agent": "BalueWave/0.1", **(headers or {})}
     if body is not None:
         encoded_body = json.dumps(body).encode("utf-8")
         request_headers.setdefault("Content-Type", "application/json")

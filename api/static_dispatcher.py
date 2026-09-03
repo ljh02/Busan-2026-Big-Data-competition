@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Route /api/* URLs to MoveValue response builders without an HTTP server.
+"""Route /api/* URLs to BalueWave response builders without an HTTP server.
 
 Used by the GitHub Pages static build: app/static-api.js runs this module in
 Pyodide and converts (status, body) pairs into fetch Response objects.
-Routing mirrors movevalue_api.Handler.do_GET.
+Routing mirrors baluewave_api.Handler.do_GET.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 from urllib.parse import parse_qs, urlparse
 
-import movevalue_api as api
+import baluewave_api as api
 
 
 def _route(path: str, raw: dict[str, list[str]]):
@@ -64,7 +64,7 @@ def handle(url: str) -> tuple[int, str]:
         return 400, json.dumps(
             {"ok": False, "error": str(exc), "integrations": api.integration_status()}, ensure_ascii=False
         )
-    except Exception as exc:  # noqa: BLE001 - mirror movevalue_api prototype behaviour
+    except Exception as exc:  # noqa: BLE001 - mirror baluewave_api prototype behaviour
         return 500, json.dumps({"ok": False, "error": str(exc)}, ensure_ascii=False)
 
 

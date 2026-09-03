@@ -6,15 +6,34 @@
   --muted-2: #94a3b8;
   --line: #e2e8f0;
   --line-soft: #eef2f7;
-  --naver: #03c75a;
-  --naver-strong: #00b14f;
-  --naver-soft: #e8f8ef;
-  --blue: #2563eb;
+  /* 브랜드 팔레트 — C90 M30 / C75 M100 / C100 M80 / M100 */
+  --brand-blue: #0087cd;
+  --brand-purple: #611885;
+  --brand-navy: #004098;
+  --brand-magenta: #e4007f;
+  --brand-blue-rgb: 0, 135, 205;
+  --brand-purple-rgb: 97, 24, 133;
+  --brand-navy-rgb: 0, 64, 152;
+  --brand-magenta-rgb: 228, 0, 127;
+  /* 역할 배정 — 이름(--naver)은 기존 사용처 113곳을 살리려고 유지했다.
+     이제 초록과 무관하므로 이름만 보고 색을 짐작하지 말 것.
+       --naver        파랑  : 주 액션 (버튼·마커·슬라이더 트랙·테두리)
+       --naver-strong 보라  : 강조 텍스트 / primary 버튼 hover
+       --naver-soft   보라틴트: 칩·소프트 배경
+       --point        마젠타: 포인트 (선택 상태·순위 배지·슬라이더 핸들·활성 탭) */
+  --naver: var(--brand-blue);
+  --naver-strong: var(--brand-purple);
+  --naver-soft: #f4ecf8;
+  --accent: var(--brand-purple);
+  --accent-soft: #f3eaf7;
+  --point: var(--brand-magenta);
+  --point-soft: #fde7f2;
+  --blue: var(--brand-navy);
   --bus: #386de8;
   --walk: #64748b;
   --gold: #b98a00;
   --danger: #ef4444;
-  --purple: #6d5dfc;
+  --purple: var(--brand-purple);
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-strong: 0 18px 48px rgba(15, 23, 42, 0.16);
   /* 사이드바는 드래그로 조절 가능하므로 기본값을 좁게 두고, 서브패널은 화면 비율을 따라간다. */
@@ -176,7 +195,7 @@ h4 {
   width: 34px;
   height: 34px;
   border-radius: 8px;
-  background: var(--naver);
+  background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-purple) 100%);
   color: #fff;
   font-size: 13px;
   font-weight: 900;
@@ -218,7 +237,7 @@ h4 {
   place-items: center;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(3, 199, 90, 0.35);
+  border: 1px solid rgba(0, 135, 205, 0.35);
   border-radius: 10px;
   background: var(--naver-soft);
   color: var(--naver-strong);
@@ -259,14 +278,14 @@ h4 {
 
 .header-bookmark-button.has-bookmarks,
 .header-bookmark-button.is-open {
-  border-color: rgba(3, 199, 90, 0.55);
-  background: var(--naver-soft);
-  color: var(--naver-strong);
+  border-color: rgba(var(--brand-magenta-rgb), 0.55);
+  background: var(--point-soft);
+  color: var(--point);
 }
 
 .header-refresh-button:hover,
 .header-bookmark-button:hover {
-  border-color: rgba(3, 199, 90, 0.55);
+  border-color: rgba(0, 135, 205, 0.55);
   background: #fff;
 }
 
@@ -354,7 +373,7 @@ h4 {
 }
 
 .icon-button:hover {
-  border-color: rgba(3, 199, 90, 0.42);
+  border-color: rgba(0, 135, 205, 0.42);
   background: var(--naver-soft);
 }
 
@@ -392,9 +411,9 @@ legend {
   justify-content: flex-end;
   gap: 2px;
   padding: 2px 6px;
-  border: 1px solid rgba(3, 199, 90, 0.24);
+  border: 1px solid rgba(0, 135, 205, 0.24);
   border-radius: 6px;
-  background: rgba(3, 199, 90, 0.1);
+  background: rgba(0, 135, 205, 0.1);
 }
 
 .budget-input-wrap span {
@@ -652,8 +671,8 @@ input[type="text"] {
 
 select:focus,
 input[type="text"]:focus {
-  border-color: rgba(3, 199, 90, 0.65);
-  box-shadow: 0 0 0 3px rgba(3, 199, 90, 0.12);
+  border-color: rgba(0, 135, 205, 0.65);
+  box-shadow: 0 0 0 3px rgba(0, 135, 205, 0.12);
 }
 
 input[type="range"] {
@@ -691,8 +710,8 @@ input[type="range"]::-webkit-slider-thumb {
   appearance: none;
   border: 3px solid #fff;
   border-radius: 50%;
-  background: var(--naver);
-  box-shadow: 0 2px 8px rgba(3, 199, 90, 0.35);
+  background: var(--point);
+  box-shadow: 0 2px 8px rgba(var(--brand-magenta-rgb), 0.35);
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -700,8 +719,8 @@ input[type="range"]::-moz-range-thumb {
   height: 14px;
   border: 3px solid #fff;
   border-radius: 50%;
-  background: var(--naver);
-  box-shadow: 0 2px 8px rgba(3, 199, 90, 0.35);
+  background: var(--point);
+  box-shadow: 0 2px 8px rgba(var(--brand-magenta-rgb), 0.35);
 }
 
 .segmented {
@@ -745,7 +764,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .segmented input:checked + span {
-  border-color: rgba(3, 199, 90, 0.55);
+  border-color: rgba(0, 135, 205, 0.55);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -811,7 +830,7 @@ input[type="range"]::-moz-range-thumb {
 
 .nav-status.is-online,
 .map-layer-status.is-ready {
-  border-color: rgba(3, 199, 90, 0.35);
+  border-color: rgba(0, 135, 205, 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -851,8 +870,8 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .result-card.is-selected {
-  border-color: rgba(3, 199, 90, 0.68);
-  box-shadow: inset 0 0 0 1px rgba(3, 199, 90, 0.4), 0 8px 22px rgba(3, 199, 90, 0.08);
+  border-color: rgba(0, 135, 205, 0.68);
+  box-shadow: inset 0 0 0 1px rgba(0, 135, 205, 0.4), 0 8px 22px rgba(0, 135, 205, 0.08);
 }
 
 .card-button {
@@ -874,8 +893,8 @@ input[type="range"]::-moz-range-thumb {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--naver-soft);
-  color: var(--naver-strong);
+  background: var(--point-soft);
+  color: var(--point);
   font-size: 14px;
   font-weight: 900;
 }
@@ -941,7 +960,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .ghost-button:hover {
-  border-color: rgba(3, 199, 90, 0.5);
+  border-color: rgba(0, 135, 205, 0.5);
   background: var(--naver-soft);
 }
 
@@ -1150,7 +1169,7 @@ body.is-resizing-subpanel {
 }
 
 .subpanel-tab.is-active::after {
-  background: var(--naver);
+  background: var(--point);
 }
 
 .subpanel-scroll {
@@ -1318,7 +1337,7 @@ details > summary span {
 
 .infrastructure-item:hover,
 .infrastructure-item.is-active {
-  border-color: rgba(3, 199, 90, 0.55);
+  border-color: rgba(0, 135, 205, 0.55);
   background: var(--naver-soft);
 }
 
@@ -1371,19 +1390,19 @@ details > summary span {
 }
 
 .infrastructure-map-marker.type-school {
-  color: #2563eb;
+  color: var(--brand-navy);
 }
 
 .infrastructure-map-marker.type-park {
-  color: #16a34a;
+  color: var(--brand-purple);
 }
 
 .infrastructure-map-marker.type-transport {
-  color: #2563eb;
+  color: var(--brand-blue);
 }
 
 .infrastructure-map-marker.type-convenience {
-  color: #0f766e;
+  color: var(--brand-magenta);
 }
 
 .infrastructure-map-marker.type-leisure {
@@ -1587,10 +1606,10 @@ details > summary span {
 
 .callout {
   padding: 13px;
-  border: 1px solid rgba(3, 199, 90, 0.18);
+  border: 1px solid rgba(0, 135, 205, 0.18);
   border-left: 4px solid var(--naver);
   border-radius: 8px;
-  background: #f4fbf7;
+  background: #eef6fc;
 }
 
 .callout.warn {
@@ -1715,14 +1734,14 @@ details > summary span {
 }
 
 .route-mode-option.is-active {
-  border-color: #00c73c;
+  border-color: var(--brand-blue);
   background: #fff;
   color: var(--naver-strong);
   box-shadow: 0 2px 7px rgba(15, 23, 42, 0.07);
 }
 
 .route-mode-option:focus-visible {
-  outline: 2px solid rgba(0, 199, 60, 0.28);
+  outline: 2px solid rgba(0, 135, 205, 0.28);
   outline-offset: 1px;
 }
 
@@ -1856,7 +1875,7 @@ details > summary span {
   background:
     linear-gradient(90deg, rgba(100, 116, 139, 0.11) 1px, transparent 1px),
     linear-gradient(rgba(100, 116, 139, 0.11) 1px, transparent 1px),
-    #eef4f2;
+    #eef2f8;
   background-size: 56px 56px;
 }
 
@@ -1864,7 +1883,7 @@ details > summary span {
   content: "";
   position: absolute;
   inset: 14% 10% 20%;
-  border: 3px solid rgba(3, 199, 90, 0.22);
+  border: 3px solid rgba(0, 135, 205, 0.22);
   border-radius: 48% 52% 43% 57%;
 }
 
@@ -1896,7 +1915,7 @@ details > summary span {
 
 .leaflet-container {
   font: inherit;
-  background: #c8e6c2;
+  background: #dce7f2;
 }
 
 .leaflet-tile {
@@ -1999,7 +2018,7 @@ details > summary span {
 }
 
 .mv-map-icon.is-selected {
-  outline: 4px solid var(--naver);
+  outline: 4px solid var(--point);
   outline-offset: 3px;
 }
 
@@ -2087,12 +2106,12 @@ details > summary span {
   border-radius: 50% 50% 50% 0;
   background: var(--naver);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(3, 199, 90, 0.34);
+  box-shadow: 0 4px 12px rgba(0, 135, 205, 0.34);
   transform: rotate(-45deg);
 }
 
 .property-price-marker.is-selected {
-  outline: 3px solid var(--blue);
+  outline: 3px solid var(--point);
   outline-offset: 2px;
 }
 
@@ -2244,7 +2263,7 @@ details > summary span {
   align-items: center;
   gap: 8px;
   padding: 10px 16px 10px 12px;
-  border: 1px solid rgba(3, 199, 90, 0.35);
+  border: 1px solid rgba(0, 135, 205, 0.35);
   border-radius: 999px;
   background: #fff;
   color: var(--naver-strong);
@@ -2266,8 +2285,8 @@ details > summary span {
 }
 
 .agent-launcher.is-active {
-  background: var(--naver);
-  border-color: var(--naver);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -2361,7 +2380,7 @@ details > summary span {
 .agent-msg.is-user {
   justify-self: end;
   border-bottom-right-radius: 4px;
-  background: var(--naver);
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
 }
@@ -2603,7 +2622,7 @@ details > summary span {
 
 .bookmark-loading {
   margin-bottom: 10px;
-  border-color: rgba(3, 199, 90, 0.24);
+  border-color: rgba(0, 135, 205, 0.24);
   color: var(--naver-strong);
 }
 
@@ -2842,13 +2861,13 @@ details > summary span {
 }
 
 .property-master-item.is-active {
-  border-color: var(--naver);
-  background: var(--naver-soft);
-  color: var(--naver-strong);
+  border-color: var(--point);
+  background: var(--point-soft);
+  color: var(--point);
 }
 
 .property-master-item.is-active::after {
-  border-color: var(--naver-strong);
+  border-color: var(--point);
 }
 
 .pm-title {
@@ -2918,7 +2937,7 @@ details > summary span {
 }
 
 .section-badge.tone-safe {
-  border-color: rgba(3, 199, 90, 0.35);
+  border-color: rgba(0, 135, 205, 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -2964,7 +2983,7 @@ details > summary span {
 }
 
 .risk-pill.safe {
-  border-color: rgba(3, 199, 90, 0.35);
+  border-color: rgba(0, 135, 205, 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -3000,7 +3019,7 @@ details > summary span {
 }
 
 .price-live-status-item.is-live {
-  border-color: rgba(3, 199, 90, 0.35);
+  border-color: rgba(0, 135, 205, 0.35);
   background: var(--naver-soft);
 }
 
@@ -3092,7 +3111,7 @@ details > summary span {
 }
 
 .gaptong-verdict.tone-safe {
-  border-color: rgba(3, 199, 90, 0.34);
+  border-color: rgba(0, 135, 205, 0.34);
   background: var(--naver-soft);
 }
 
@@ -3207,7 +3226,7 @@ details > summary span {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  border-color: rgba(3, 199, 90, 0.28);
+  border-color: rgba(0, 135, 205, 0.28);
   background: var(--naver-soft);
 }
 
@@ -3611,7 +3630,7 @@ details > summary span {
   align-items: center;
   gap: 8px;
   padding: 10px 16px 10px 12px;
-  border: 1px solid rgba(3, 199, 90, 0.35);
+  border: 1px solid rgba(0, 135, 205, 0.35);
   border-radius: 999px;
   background: #fff;
   color: var(--naver-strong);
@@ -3643,8 +3662,8 @@ details > summary span {
 }
 
 .agent-launcher.is-active {
-  background: var(--naver);
-  border-color: var(--naver);
+  background: var(--accent);
+  border-color: var(--accent);
   color: #fff;
 }
 
@@ -3738,7 +3757,7 @@ details > summary span {
 .agent-msg.is-user {
   justify-self: end;
   border-bottom-right-radius: 4px;
-  background: var(--naver);
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
 }
@@ -3884,7 +3903,7 @@ details > summary span {
 }
 
 .gaptong-verdict.tone-safe {
-  border-color: rgba(3, 199, 90, 0.34);
+  border-color: rgba(0, 135, 205, 0.34);
   background: var(--naver-soft);
 }
 
@@ -4002,7 +4021,7 @@ details > summary span {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  border-color: rgba(3, 199, 90, 0.28);
+  border-color: rgba(0, 135, 205, 0.28);
   background: var(--naver-soft);
 }
 
@@ -4267,4 +4286,45 @@ details > summary span {
   .sidebar-brand {
     padding-right: 12px;
   }
+}
+
+/* ── BalueWave 캐릭터 ─────────────────────────────────────────────
+   런처 버튼·에이전트 패널 헤더·인트로 메시지에 마스코트를 노출한다.
+   .agent-launcher 정의가 파일 내 두 곳에 중복돼 있어, 확실히 이기도록
+   파일 끝에 둔다. */
+
+.agent-launcher .agent-character-icon {
+  width: 26px;
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 1px 3px rgba(var(--brand-navy-rgb), 0.3));
+}
+
+.agent-launcher.is-active .agent-character-icon {
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.32));
+}
+
+.agent-panel-head {
+  align-items: center;
+}
+
+.agent-panel-avatar {
+  width: 36px;
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 2px 5px rgba(var(--brand-navy-rgb), 0.28));
+}
+
+.agent-panel-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.agent-msg.is-intro::before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 86px;
+  margin: 2px auto 9px;
+  background: url("./assets/baluewave-character.png") center / contain no-repeat;
 }

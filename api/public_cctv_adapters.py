@@ -14,7 +14,7 @@ from env_loader import load_dotenv
 
 
 API_URL = "http://apis.data.go.kr/1741000/cctv_info/info"
-API_KEY_ENVS = ("PUBLIC_CCTV_API_KEY", "CCTV_API_KEY", "MOVEVALUE_CCTV_API_KEY")
+API_KEY_ENVS = ("PUBLIC_CCTV_API_KEY", "CCTV_API_KEY", "BALUEWAVE_CCTV_API_KEY")
 DEFAULT_RADIUS_METERS = 1000
 MAX_RADIUS_METERS = 20000
 PAGE_SIZE = 100
@@ -111,7 +111,7 @@ def _request_page(api_key: str, condition_name: str, condition_value: str, page:
         condition_name: condition_value,
     }
     query = urllib.parse.urlencode(params, safe="%")
-    request = urllib.request.Request(f"{API_URL}?{query}", headers={"User-Agent": "MoveValue/0.1"})
+    request = urllib.request.Request(f"{API_URL}?{query}", headers={"User-Agent": "BalueWave/0.1"})
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=10) as response:
         body = response.read().decode("utf-8", errors="replace")

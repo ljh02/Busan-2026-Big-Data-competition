@@ -11,7 +11,7 @@
     "property_model.py",
     "apartment_adapters.py",
     "property_adapters.py",
-    "movevalue_api.py",
+    "baluewave_api.py",
     "static_dispatcher.py"
   ];
   const DATA_FILES = ["areas.actual.json", "apartments.seoul.snapshot.json"];
@@ -45,17 +45,17 @@
       document.head.appendChild(script);
     });
     const pyodide = await loadPyodide();
-    pyodide.FS.mkdirTree("/movevalue/api");
-    pyodide.FS.mkdirTree("/movevalue/data");
+    pyodide.FS.mkdirTree("/baluewave/api");
+    pyodide.FS.mkdirTree("/baluewave/data");
     const files = await Promise.all([
       ...PY_FILES.map(async (name) => [`api/${name}`, await fetchText(`./py/${name}`)]),
       ...DATA_FILES.map(async (name) => [`data/${name}`, await fetchText(`./data/${name}`)])
     ]);
     for (const [path, text] of files) {
-      pyodide.FS.writeFile(`/movevalue/${path}`, text);
+      pyodide.FS.writeFile(`/baluewave/${path}`, text);
     }
     return pyodide.runPython(
-      'import sys\nsys.path.insert(0, "/movevalue/api")\nimport static_dispatcher\nstatic_dispatcher.handle'
+      'import sys\nsys.path.insert(0, "/baluewave/api")\nimport static_dispatcher\nstatic_dispatcher.handle'
     );
   }
 

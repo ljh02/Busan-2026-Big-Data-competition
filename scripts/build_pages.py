@@ -3,9 +3,9 @@
 
 Deploy (gh-pages branch):
     python3 scripts/build_pages.py
-    git worktree add ../movevalue-pages gh-pages
-    rsync -a --delete --exclude .git site/ ../movevalue-pages/
-    cd ../movevalue-pages && git add -A && git commit -m "Deploy Pages build" && git push origin gh-pages
+    git worktree add ../baluewave-pages gh-pages
+    rsync -a --delete --exclude .git site/ ../baluewave-pages/
+    cd ../baluewave-pages && git add -A && git commit -m "Deploy Pages build" && git push origin gh-pages
 """
 
 from __future__ import annotations
@@ -25,7 +25,7 @@ PY_FILES = [
     "property_model.py",
     "apartment_adapters.py",
     "property_adapters.py",
-    "movevalue_api.py",
+    "baluewave_api.py",
     "static_dispatcher.py",
 ]
 DATA_FILES = ["areas.actual.json", "apartments.seoul.snapshot.json"]
@@ -63,6 +63,11 @@ def main() -> None:
         shutil.copy2(ROOT / "api" / name, SITE / "py" / name)
     for name in DATA_FILES:
         shutil.copy2(ROOT / "data" / name, SITE / "data" / name)
+    # 캐릭터 이미지 등 app/assets 는 통째로 옮긴다. 개별 나열하면
+    # 에셋을 추가할 때마다 여기를 고쳐야 하고, 빠뜨리면 404 로만 드러난다.
+    app_assets = ROOT / "app" / "assets"
+    if app_assets.is_dir():
+        shutil.copytree(app_assets, SITE / "assets")
     (SITE / ".nojekyll").write_text("", encoding="utf-8")
     print(f"built {SITE}")
 

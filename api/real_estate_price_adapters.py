@@ -1,4 +1,4 @@
-"""Public real-estate price adapters for MoveValue.
+"""Public real-estate price adapters for BalueWave.
 
 The adapter is intentionally optional. It never requires API keys for the app
 to boot, but it can enrich a selected apartment detail with MOLIT transaction
@@ -30,7 +30,7 @@ KAKAO_ADDRESS_ENDPOINT = "https://dapi.kakao.com/v2/local/search/address.json"
 TRADE_KEY_ENVS = ("MOLIT_APT_TRADE_KEY", "MOLIT_SERVICE_KEY", "MOLIT_API_KEY", "PUBLIC_DATA_API_KEY")
 RENT_KEY_ENVS = ("MOLIT_APT_RENT_KEY", "MOLIT_SERVICE_KEY", "MOLIT_API_KEY", "PUBLIC_DATA_API_KEY")
 PUBLIC_PRICE_KEY_ENVS = ("PUBLIC_PRICE_API_KEY", "OFFICIAL_PRICE_API_KEY", "MOLIT_PUBLIC_PRICE_KEY", "NSDI_API_KEY")
-KAKAO_KEY_ENVS = ("KAKAO_REST_API_KEY", "MOVEVALUE_KAKAO_REST_API_KEY")
+KAKAO_KEY_ENVS = ("KAKAO_REST_API_KEY", "BALUEWAVE_KAKAO_REST_API_KEY")
 
 SEOUL_LAWD_CODES = {
     "종로구": "11110",
@@ -172,7 +172,7 @@ def text_of(item: ET.Element, *names: str) -> str:
 
 def request_xml(endpoint: str, params: dict[str, str]) -> ET.Element:
     encoded = urllib.parse.urlencode(params, safe="%")
-    request = urllib.request.Request(f"{endpoint}?{encoded}", headers={"User-Agent": "MoveValue/0.1"})
+    request = urllib.request.Request(f"{endpoint}?{encoded}", headers={"User-Agent": "BalueWave/0.1"})
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=18) as response:  # noqa: S310 - official public API endpoint.
         return ET.fromstring(response.read())
@@ -182,7 +182,7 @@ def request_json(endpoint: str, params: dict[str, str], headers: dict[str, str] 
     encoded = urllib.parse.urlencode(params, safe="%")
     request = urllib.request.Request(
         f"{endpoint}?{encoded}",
-        headers={"User-Agent": "MoveValue/0.1", **(headers or {})},
+        headers={"User-Agent": "BalueWave/0.1", **(headers or {})},
     )
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=15) as response:  # noqa: S310 - official public API endpoint.

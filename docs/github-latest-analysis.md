@@ -14,7 +14,7 @@
 | `57fedf5` | live 데이터 신뢰도와 부동산 의사결정 강화 | 실거래가 어댑터, 위험 신호, Agent 근거 그룹 추가 |
 | `c9597c1` | 아키텍처 문서화 | `architecture/` 문서와 Mermaid 다이어그램 추가 |
 
-최신 커밋 `212f41c`의 변경 규모는 9개 파일, 3,086줄 추가, 680줄 삭제다. 핵심 변경 파일은 `app/app.js`, `app/styles.css`, `api/movevalue_api.py`, `data/apartments.seoul.snapshot.json`이다.
+최신 커밋 `212f41c`의 변경 규모는 9개 파일, 3,086줄 추가, 680줄 삭제다. 핵심 변경 파일은 `app/app.js`, `app/styles.css`, `api/baluewave_api.py`, `data/apartments.seoul.snapshot.json`이다.
 
 ## 현재 서비스 구현 현황 요약표
 
@@ -22,7 +22,7 @@
 | --- | --- | --- | --- |
 | 웹 UI | 단일 지도 워크스페이스, 왼쪽 조건 입력/추천, 가운데 상세 패널, 오른쪽 Leaflet 지도 | `app/index.html`, `app/app.js`, `app/styles.css` | 구현 완료 |
 | 사용자 조건 입력 | 월 주거 예산, 회사/목적지 주소, 가구 유형, 통근/주거비/SOC/안전 가중치 | `app/index.html`, `app/app.js` | 구현 완료 |
-| 아파트 매칭 | 후보 아파트 단지 단위로 통근, 주거비, 생활 SOC, 안전 점수 산정 | `api/movevalue_api.py` | 구현 완료 |
+| 아파트 매칭 | 후보 아파트 단지 단위로 통근, 주거비, 생활 SOC, 안전 점수 산정 | `api/baluewave_api.py` | 구현 완료 |
 | 지도 레이어 | Leaflet/OSM 지도, 단지 가격 라벨, 클러스터, 선택 단지 SOC 반경 | `app/app.js`, `api/apartment_adapters.py` | 구현 완료 |
 | 부동산 상세 대시보드 | 기본정보, 가격정보, 거래추이, 전세 위험 신호, 데이터 연계 상태 | `api/property_model.py`, `api/property_adapters.py`, `app/app.js` | 구현 완료 |
 | 계약 전 체크리스트 | 등기부, 보증보험, 체납/신탁, 건축물대장, 전입/확정일자 확인 항목 | `api/property_model.py`, `app/app.js` | 구현 완료 |
@@ -38,7 +38,7 @@
 
 | 계층 | 역할 | 구현 방식 |
 | --- | --- | --- |
-| 정적 웹앱 | HTML/CSS/Vanilla JS 기반 SPA | `api/movevalue_api.py`가 `/`, `/app.js`, `/styles.css`를 서빙 |
+| 정적 웹앱 | HTML/CSS/Vanilla JS 기반 SPA | `api/baluewave_api.py`가 `/`, `/app.js`, `/styles.css`를 서빙 |
 | 화면 상태관리 | 전역 `state` 객체 | 예산, 목적지, 가중치, 추천 결과, 선택 단지, 경로, 즐겨찾기, Agent 응답 저장 |
 | 추천 API | `/api/apartment-recommendations` | 사용자 조건을 받아 아파트 단지 점수와 추천 이유 반환 |
 | 생활권 API | `/api/areas` | 서울 9개 생활권, 전월세 집계, SOC/안전 근거 반환 |

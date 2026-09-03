@@ -24,7 +24,7 @@
 
 ## 실제 API live 검증 구조 및 지도 UX 검증 (2026-06-12)
 
-- 서버 실행: `python3 api/movevalue_api.py --port 5173 --quiet`
+- 서버 실행: `python3 api/baluewave_api.py --port 5173 --quiet`
 - `GET /api/health`: `ok=true`, 생활권 9개, `integrations={odsay:false,tmap:false,kakao:false,seoulOpenApi:false,molitTrade:false,molitRent:false,publicPrice:false}` 반환 확인
 - `python3 scripts/verify_live_integrations.py`: 키 미설정 환경에서도 실패하지 않고 `ok=true` 반환. Kakao 주소검색은 `not_configured_or_no_result`, 통근 루트는 `provider=fallback`, `mode=estimated_fallback`, 총 27분·요금 1,550원·단계 3개 반환
 - 같은 스크립트에서 서울 아파트 데이터는 `sourceMode=snapshot`, `totalRecords=2876`, `availableRecords=5`, `complete=false`로 확인. 실제 `SEOUL_OPEN_API_KEY` 주입 시 전체 수집 경로로 전환 가능
@@ -82,12 +82,12 @@
 - `node --check app/app.js` 통과
 - `python3 -m json.tool data/areas.actual.json` 통과
 - `python3 -m json.tool data/apartments.seoul.snapshot.json` 통과
-- `python3 -m py_compile api/movevalue_api.py api/route_adapters.py api/apartment_adapters.py api/property_model.py api/property_adapters.py api/real_estate_price_adapters.py scripts/build_real_dataset.py scripts/movevalue_adapters.py scripts/build_apartment_snapshot.py scripts/verify_live_integrations.py scripts/build_application_docx.py` 통과
+- `python3 -m py_compile api/baluewave_api.py api/route_adapters.py api/apartment_adapters.py api/property_model.py api/property_adapters.py api/real_estate_price_adapters.py scripts/build_real_dataset.py scripts/baluewave_adapters.py scripts/build_apartment_snapshot.py scripts/verify_live_integrations.py scripts/build_application_docx.py` 통과
 - `git diff --check` 통과
 
 ## API 검증
 
-- API 서버 실행: `python3 api/movevalue_api.py --port 5173`
+- API 서버 실행: `python3 api/baluewave_api.py --port 5173`
 - `GET /api/health`: `ok=true`, 생활권 9개, 2025 서울시 전월세 출처, ODsay 경로 API 어댑터 메타, 생활 SOC 데이터셋 메타, 안전환경 데이터셋 메타 포함
 - `GET /api/health`: `apartments.sourceMode=snapshot`, `apartments.totalRecords=2876`, `apartments.availableRecords=5`, `apartments.complete=false`, `integrations.seoulOpenApi=false` 확인
 - `GET /api/recommendations?...&limit=9`: 9개 랭킹 반환, `meta.totalCandidates=9`, 1위 건대입구 91점(기본 조건), `reasonText`에 강남 24분·월세 57만원·병원 2·학교 3·공원 2·치안시설 2·CCTV 62대 표시

@@ -1,8 +1,8 @@
-"""Real-estate detail model for the MoveValue property dashboard.
+"""Real-estate detail model for the BalueWave property dashboard.
 
 The model intentionally separates exact public-source fields from prototype
 market estimates. Exact apartment/building fields come from Seoul OpenAptInfo;
-rent/jeonse baselines come from MoveValue's 2025 Seoul rental transaction
+rent/jeonse baselines come from BalueWave's 2025 Seoul rental transaction
 aggregation; sale/public-price fields are deterministic estimates until the
 MOLIT/PublicData keys are connected.
 """

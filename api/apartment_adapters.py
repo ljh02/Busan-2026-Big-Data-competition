@@ -1,4 +1,4 @@
-"""Apartment complex data adapter for the MoveValue map layer."""
+"""Apartment complex data adapter for the BalueWave map layer."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ SNAPSHOT_PATH = ROOT / "data" / "apartments.seoul.snapshot.json"
 AREAS_PATH = ROOT / "data" / "areas.actual.json"
 API_NAME = "OpenAptInfo"
 API_URL = "http://openapi.seoul.go.kr:8088/{key}/json/OpenAptInfo/{start}/{end}/"
-API_KEY_ENVS = ("SEOUL_OPEN_API_KEY", "SEOUL_API_KEY", "MOVEVALUE_SEOUL_OPEN_API_KEY")
+API_KEY_ENVS = ("SEOUL_OPEN_API_KEY", "SEOUL_API_KEY", "BALUEWAVE_SEOUL_OPEN_API_KEY")
 SOURCE_META = {
     "name": "서울시 공동주택 아파트 정보",
     "url": "https://data.seoul.go.kr/dataList/OA-15818/S/1/datasetView.do",

@@ -1,6 +1,17 @@
-# MoveValue - 국토교통 서비스 발굴 경연 작업공간
+# BalueWave - 2026 BIG DATA 활용대회 작업공간
 
-`MoveValue`는 주거비, 이동시간, 대중교통 접근성, 생활 SOC, 안전·환경 지표를 함께 계산해 국민이 체감할 수 있는 생활권 선택을 돕는 국토교통 데이터 기반 서비스 모델입니다.
+`BalueWave`는 주거비, 이동시간, 대중교통 접근성, 생활 SOC, 안전·환경 지표를 함께 계산해 국민이 체감할 수 있는 생활권 선택을 돕는 공공데이터 기반 서비스 모델입니다.
+
+**출품 대상**: 2026 BIG DATA 활용대회 (DX CHALLENGE) — 부산광역시·부산테크노파크 주최.
+**Track 1 (빅데이터 분석 및 시각화)** 에 해당합니다. 요강은 `docs/competition-brief.md`.
+
+> 🔴 **현재 구현은 서울 데이터셋 기반입니다.** 대회 주제가 "부산지역 현안 분석"이므로
+> 지역 전환이 필수이며, 아직 완료되지 않았습니다. 부산 실데이터를 확보하기 전에
+> 지명만 바꾸면 근거 없는 수치가 되므로 의도적으로 보류했습니다.
+> 전환 범위와 순서는 `docs/busan-localization.md` 를 참고하세요.
+
+> 이 저장소는 원래 **2026 국토교통 서비스 발굴 경연** 제출용이었습니다. 저장소 이름과
+> 루트의 PDF·HWPX 4종, `deliverables/` 의 문서는 그 시기의 산출물입니다.
 
 **라이브 데모**: <https://lsb-afk.github.io/-Future-Value-Level-up-Challenge-/> — 설치 없이 브라우저에서 바로 실행됩니다(Pyodide로 Python API를 브라우저 안에서 구동). 첫 접속 시 엔진 로딩에 10초 정도 걸립니다.
 
@@ -32,8 +43,9 @@
 - `scripts/build_real_dataset.py`: 실제 공공데이터 다운로드·정규화 파이프라인
 - `scripts/build_apartment_snapshot.py`: 서울 열린데이터광장 `OpenAptInfo` 단지 데이터 스냅샷 생성기
 - `scripts/verify_live_integrations.py`: Kakao/ODsay/TMAP/서울 OpenAptInfo/국토부 실거래가 키 기반 live 여부 검증 스크립트
-- `scripts/movevalue_adapters.py`: 대중교통 경로 API 폴백 어댑터, 생활 SOC 좌표 집계 어댑터, 안전·환경 스냅샷 점수 어댑터
+- `scripts/baluewave_adapters.py`: 대중교통 경로 API 폴백 어댑터, 생활 SOC 좌표 집계 어댑터, 안전·환경 스냅샷 점수 어댑터
 - `docs/competition-brief.md`: 공모전 공고·양식 확인 요약
+- `docs/busan-localization.md`: 서울 → 부산 지역 전환 범위와 순서
 - `docs/data-sources.md`: 실제 연계 가능한 공공데이터 근거
 - `docs/api-development.md`: API 구조, 실행 방법, 지도 제공자 교체 가이드
 - `docs/real-estate-dashboard.md`: 부동산 지도 대시보드 설계, 레퍼런스 조사, 데이터 진실성 구분
@@ -55,7 +67,7 @@
 별도 패키지 설치 없이 Python 표준 라이브러리만 사용합니다.
 
 ```bash
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 그 다음 브라우저에서 `http://127.0.0.1:5173/`를 엽니다.
@@ -76,14 +88,14 @@ Claude로 쓰려면:
 ```bash
 pip install anthropic
 echo 'ANTHROPIC_API_KEY=sk-ant-...' >> .env
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 Ollama로 쓰려면 (키 불필요, 무료):
 
 ```bash
 ollama pull gemma4                       # 또는 OLLAMA_MODEL로 다른 모델 지정
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 `GET /api/agent-status`로 현재 엔진을 확인할 수 있고, 대화 패널 상단에도 표시됩니다.
@@ -130,7 +142,7 @@ OLLAMA_MODEL=llama3.1:8b python3 api/eval_agent_ollama.py     # 바꾸기 전 �
 python3 scripts/build_real_dataset.py
 ```
 
-통근시간은 `ODSAY_API_KEY` 또는 `MOVEVALUE_ODSAY_API_KEY`가 있으면 대중교통 경로 API를 호출하고, 키가 없거나 실패하면 기존 검증 테이블로 폴백합니다. 생활 SOC는 병의원·학교·공원 좌표 스냅샷을 생활권 대표역 기준 반경 1.6km로 집계하고, 안전·환경은 치안시설·CCTV 집계점·도시대기 측정망·공원 접근성을 결합합니다. 각 생활권에는 개인정보성 상세주소를 제외한 전월세 실거래 예시 4건도 포함됩니다.
+통근시간은 `ODSAY_API_KEY` 또는 `BALUEWAVE_ODSAY_API_KEY`가 있으면 대중교통 경로 API를 호출하고, 키가 없거나 실패하면 기존 검증 테이블로 폴백합니다. 생활 SOC는 병의원·학교·공원 좌표 스냅샷을 생활권 대표역 기준 반경 1.6km로 집계하고, 안전·환경은 치안시설·CCTV 집계점·도시대기 측정망·공원 접근성을 결합합니다. 각 생활권에는 개인정보성 상세주소를 제외한 전월세 실거래 예시 4건도 포함됩니다.
 
 실제 주소 검색과 통근 루트 검증은 서버 환경변수로 API 키를 주입합니다. 기본 생활권·목적지 대표 주소는 API 키 없이 로컬 좌표로 변환되며, 사용자가 입력한 상세 주소는 Kakao 키가 있을 때 검색합니다. 키를 코드에 직접 쓰지 않습니다.
 
@@ -141,7 +153,7 @@ export TMAP_APP_KEY="TMAP 대중교통 appKey"
 export TMAP_GENERAL_APP_KEY="TMAP 일반 appKey"
 export SEOUL_OPEN_API_KEY="서울 열린데이터광장 인증키"
 export MOLIT_SERVICE_KEY="공공데이터포털 일반 인증키"
-python3 api/movevalue_api.py --port 5173
+python3 api/baluewave_api.py --port 5173
 ```
 
 필요한 키 목록은 `.env.example`에 정리되어 있습니다. 실제 키는 `.env`에만 넣고 Git에 커밋하지 않습니다.

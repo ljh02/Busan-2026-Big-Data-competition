@@ -16,7 +16,7 @@ from env_loader import load_dotenv
 load_dotenv()
 
 KAKAO_KEYWORD_ENDPOINT = "https://dapi.kakao.com/v2/local/search/keyword.json"
-KAKAO_KEY_ENVS = ("KAKAO_REST_API_KEY", "MOVEVALUE_KAKAO_REST_API_KEY")
+KAKAO_KEY_ENVS = ("KAKAO_REST_API_KEY", "BALUEWAVE_KAKAO_REST_API_KEY")
 DEFAULT_RADIUS_METERS = 1000
 MAX_RADIUS_METERS = 20000
 PAGE_SIZE = 15
@@ -82,7 +82,7 @@ def _request(params: dict[str, Any], api_key: str) -> dict[str, Any]:
     query = urllib.parse.urlencode(params)
     request = urllib.request.Request(
         f"{KAKAO_KEYWORD_ENDPOINT}?{query}",
-        headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "MoveValue/0.1"},
+        headers={"Authorization": f"KakaoAK {api_key}", "User-Agent": "BalueWave/0.1"},
     )
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=5) as response:

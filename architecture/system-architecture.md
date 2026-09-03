@@ -1,13 +1,13 @@
 # System Architecture
 
-MoveValue는 현재 외부 패키지 없는 Python 표준 라이브러리 API 서버와 브라우저 SPA로 구성된 프로토타입이다. 핵심 계산은 서버에 두고, 웹은 지도·대시보드·입력 UX를 담당한다.
+BalueWave는 현재 외부 패키지 없는 Python 표준 라이브러리 API 서버와 브라우저 SPA로 구성된 프로토타입이다. 핵심 계산은 서버에 두고, 웹은 지도·대시보드·입력 UX를 담당한다.
 
 ## System Context
 
 ```mermaid
 flowchart TB
     User["사용자<br/>청년·신혼부부·직장인·정책 담당자"]
-    Service["MoveValue<br/>주거-이동 통합 생활권 추천 서비스"]
+    Service["BalueWave<br/>주거-이동 통합 생활권 추천 서비스"]
     OpenData["공공데이터<br/>서울시 전월세·공동주택·SOC·안전환경"]
     RouteApis["외부 경로/주소 API<br/>Kakao Local · ODsay · TMAP"]
     GovBiz["B2G/B2B 활용처<br/>정책 리포트 · 데이터 API · 주거 상담"]
@@ -29,7 +29,7 @@ flowchart LR
     end
 
     subgraph Server["Local API Server"]
-        Router["movevalue_api.py<br/>HTTP Router"]
+        Router["baluewave_api.py<br/>HTTP Router"]
         Recommend["Recommendation Engine<br/>예산·통근·SOC·안전환경 점수"]
         Route["Route Adapters<br/>Kakao / ODsay / TMAP / Fallback"]
         Apt["Apartment Layer Adapter<br/>OpenAptInfo / Snapshot"]
@@ -44,7 +44,7 @@ flowchart LR
 
     subgraph Build["Offline Build Scripts"]
         RentBuilder["build_real_dataset.py"]
-        AdapterBuilder["movevalue_adapters.py"]
+        AdapterBuilder["baluewave_adapters.py"]
         AptBuilder["build_apartment_snapshot.py"]
     end
 
@@ -69,7 +69,7 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-    Router["api/movevalue_api.py"]
+    Router["api/baluewave_api.py"]
 
     Router --> Health["/api/health<br/>데이터·키 상태"]
     Router --> AreasApi["/api/areas<br/>생활권 원천 조회"]
@@ -119,8 +119,8 @@ flowchart LR
 | 계층 | 책임 | 주요 파일 |
 | --- | --- | --- |
 | Web UI | 입력 상태, 탭 전환, 지도 마커, 상세 패널, 반응형 렌더링 | `app/app.js`, `app/styles.css` |
-| API Router | 정적 파일 서빙, 엔드포인트 라우팅, JSON 응답 | `api/movevalue_api.py` |
-| Recommendation | 생활권 점수, 추천 사유 문장, 가중치 계산 | `api/movevalue_api.py` |
+| API Router | 정적 파일 서빙, 엔드포인트 라우팅, JSON 응답 | `api/baluewave_api.py` |
+| Recommendation | 생활권 점수, 추천 사유 문장, 가중치 계산 | `api/baluewave_api.py` |
 | Route/Geocode | 주소 좌표화, 대중교통 live API, 거리 기반 폴백 | `api/route_adapters.py` |
 | Apartment Layer | 단지 API 호출, 스냅샷 폴백, 클러스터링, 가격 미리보기 | `api/apartment_adapters.py` |
 | Price Live Adapter | 국토교통부 매매·전월세 실거래가 조회, 단지명 매칭, live/폴백 상태 | `api/real_estate_price_adapters.py` |
@@ -134,7 +134,7 @@ flowchart LR
 flowchart TB
     Web["Web Dashboard"] --> Gateway["API Gateway"]
     IOS["SwiftUI iOS App"] --> Gateway
-    Gateway --> AppApi["MoveValue Application API"]
+    Gateway --> AppApi["BalueWave Application API"]
     AppApi --> Postgis["PostgreSQL / PostGIS"]
     AppApi --> Cache["Route / Tile / Query Cache"]
     AppApi --> Queue["Batch Job Queue"]

@@ -1,6 +1,6 @@
 # Data Flow
 
-MoveValue의 데이터 흐름은 `오프라인 데이터 구축`과 `런타임 API 조회`로 나뉜다. 대용량 원천 파일과 API 키는 저장소에 남기지 않고, 정규화된 프로토타입 데이터만 커밋한다.
+BalueWave의 데이터 흐름은 `오프라인 데이터 구축`과 `런타임 API 조회`로 나뉜다. 대용량 원천 파일과 API 키는 저장소에 남기지 않고, 정규화된 프로토타입 데이터만 커밋한다.
 
 ## Data Source Map
 
@@ -75,7 +75,7 @@ sequenceDiagram
 sequenceDiagram
     participant User as 사용자
     participant Web as app/app.js
-    participant API as movevalue_api.py
+    participant API as baluewave_api.py
     participant Areas as areas.actual.json
 
     User->>Web: 예산, 목적지, 가구 유형, 가중치 입력

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a compact MoveValue dataset from real public-data snapshots."""
+"""Build a compact BalueWave dataset from real public-data snapshots."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from movevalue_adapters import adapter_source_meta, build_commute_minutes, build_safety_env_metrics, build_soc_metrics
+from baluewave_adapters import adapter_source_meta, build_commute_minutes, build_safety_env_metrics, build_soc_metrics
 
 
 ROOT = Path(__file__).resolve().parents[1]

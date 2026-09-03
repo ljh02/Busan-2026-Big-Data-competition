@@ -1,13 +1,13 @@
 # API Sequences
 
-이 문서는 프론트엔드와 API 서버가 어떤 순서로 통신하는지 정리한다. 모든 API는 현재 `python3 api/movevalue_api.py --port 5173` 서버에서 제공된다.
+이 문서는 프론트엔드와 API 서버가 어떤 순서로 통신하는지 정리한다. 모든 API는 현재 `python3 api/baluewave_api.py --port 5173` 서버에서 제공된다.
 
 ## Initial Page Load
 
 ```mermaid
 sequenceDiagram
     participant Browser as Browser
-    participant Server as movevalue_api.py
+    participant Server as baluewave_api.py
     participant Areas as areas.actual.json
 
     Browser->>Server: GET /

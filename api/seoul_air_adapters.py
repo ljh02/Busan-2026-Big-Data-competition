@@ -18,7 +18,7 @@ API_KEY_ENVS = (
     "SEOUL_AIR_API_KEY",
     "SEOUL_OPEN_API_KEY",
     "SEOUL_API_KEY",
-    "MOVEVALUE_SEOUL_OPEN_API_KEY",
+    "BALUEWAVE_SEOUL_OPEN_API_KEY",
 )
 CACHE_SECONDS = 60 * 30
 
@@ -156,7 +156,7 @@ def _fetch_rows(api_key: str) -> list[dict[str, Any]]:
         return list(_CACHE[1].get("rows", []))
 
     url = API_URL.format(key=urllib.parse.quote(api_key, safe=""))
-    request = urllib.request.Request(url, headers={"User-Agent": "MoveValue/0.1"})
+    request = urllib.request.Request(url, headers={"User-Agent": "BalueWave/0.1"})
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     with opener.open(request, timeout=7) as response:
         payload = json.loads(response.read().decode("utf-8"))

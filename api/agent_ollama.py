@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""로컬 Ollama 기반 MoveValue AI Agent.
+"""로컬 Ollama 기반 BalueWave AI Agent.
 
 agent_llm(Claude)과 같은 일을 하되 과금이 없다. 도구 구현·시스템 프롬프트·도구 스키마는
 전부 agent_llm에서 그대로 가져다 쓰고, 이 모듈은 "모델을 어떻게 호출하고 응답을 어떻게
 읽느냐"만 다르게 한다. 반환 dict 모양도 agent_llm.agent_chat과 동일해서
-movevalue_api와 app.js는 어느 엔진이 답했는지 몰라도 된다.
+baluewave_api와 app.js는 어느 엔진이 답했는지 몰라도 된다.
 
 의존성은 stdlib뿐이다. ollama 파이썬 패키지도, requests도 쓰지 않는다 —
 이 프로젝트의 API 서버 자체가 http.server 기반이라 POST 한 번에 패키지를 더할 이유가 없다.
@@ -73,7 +73,7 @@ SYSTEM_SUFFIX = """
 - 도구 결과의 숫자는 **그대로 복사**하세요. 반올림하지 말고, 다시 계산하지 말고, 어림잡지 마세요. 62.7이면 62.7이라고 쓰세요. 59라고 쓰면 안 됩니다.
 - verdictLabel 같은 판정 문구도 도구가 준 표현을 그대로 쓰세요. "여력 보통"을 "여력이 있습니다"로 바꾸지 마세요. 위험 판정을 부드럽게 고쳐 쓰면 사용자가 잘못된 결정을 합니다.
 - 도구 결과에 없는 숫자는 절대 만들지 마세요.
-- 출처를 지어내지 마세요. 검색을 못 하므로 "(출처: ○○)" 같은 표기를 붙일 근거가 없습니다. 근거는 "MoveValue 도구가 돌려준 값"이라고만 밝히세요."""
+- 출처를 지어내지 마세요. 검색을 못 하므로 "(출처: ○○)" 같은 표기를 붙일 근거가 없습니다. 근거는 "BalueWave 도구가 돌려준 값"이라고만 밝히세요."""
 
 
 def _api(path: str, payload: dict | None, timeout: int) -> dict:

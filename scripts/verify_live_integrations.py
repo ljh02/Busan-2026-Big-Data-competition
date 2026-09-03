@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify MoveValue live integrations without printing secret values.
+"""Verify BalueWave live integrations without printing secret values.
 
 The script is intentionally safe to run without credentials. It reports which
 adapters are configured, which calls reached a live API, and where the service
@@ -20,7 +20,7 @@ API_DIR = ROOT / "api"
 sys.path.insert(0, str(API_DIR))
 
 from apartment_adapters import load_apartment_dataset  # noqa: E402
-from movevalue_api import DESTINATIONS, build_commute_route, integration_status, known_locations  # noqa: E402
+from baluewave_api import DESTINATIONS, build_commute_route, integration_status, known_locations  # noqa: E402
 from property_model import build_property_detail  # noqa: E402
 from route_adapters import geocode_with_kakao, resolve_location  # noqa: E402
 
@@ -148,7 +148,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Verify MoveValue live API integrations.")
+    parser = argparse.ArgumentParser(description="Verify BalueWave live API integrations.")
     parser.add_argument("--origin-query", default=DEFAULT_ORIGIN)
     parser.add_argument("--destination-query", default=DEFAULT_DESTINATION)
     parser.add_argument("--provider", choices=("auto", "odsay", "tmap"), default="auto")
@@ -160,7 +160,7 @@ def main() -> None:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
 
-    print("MoveValue live integration verification")
+    print("BalueWave live integration verification")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

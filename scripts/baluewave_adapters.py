@@ -1,4 +1,4 @@
-"""MoveValue data adapters for route and living-SOC evidence.
+"""BalueWave data adapters for route and living-SOC evidence.
 
 The adapters are intentionally dependency-free so the contest prototype can be
 rebuilt in a clean Python environment. Live transit routing is optional and
@@ -36,7 +36,7 @@ DESTINATIONS = {
 
 OD_SAY_ENDPOINT = "https://api.odsay.com/v1/api/searchPubTransPathT"
 OD_SAY_KEY_ENV = "ODSAY_API_KEY"
-OD_SAY_ALT_KEY_ENV = "MOVEVALUE_ODSAY_API_KEY"
+OD_SAY_ALT_KEY_ENV = "BALUEWAVE_ODSAY_API_KEY"
 
 SOC_RADIUS_METERS = 1600
 SAFETY_ENV_RADIUS_METERS = 1800
@@ -181,7 +181,7 @@ def _query_odsay_minutes(area_def: dict[str, Any], destination: dict[str, Any], 
         "output": "json",
     }
     url = f"{OD_SAY_ENDPOINT}?{urllib.parse.urlencode(params)}"
-    request = urllib.request.Request(url, headers={"User-Agent": "MoveValue/0.1"})
+    request = urllib.request.Request(url, headers={"User-Agent": "BalueWave/0.1"})
     with urllib.request.urlopen(request, timeout=12) as response:
         payload = json.loads(response.read().decode("utf-8"))
 

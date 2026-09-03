@@ -9,17 +9,21 @@ from docx.shared import Inches, Pt, RGBColor
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "deliverables" / "MoveValue_참가신청서_보강본.docx"
+# ⚠️ 2026 BIG DATA 활용대회(부산)의 공식 제출 양식은 아직 미확보다.
+# 아래 문서 구조는 이전 공모전(국토교통 서비스 발굴 경연)의 양식을 그대로 따르고
+# 있으므로, 공고문을 확보하면 항목 구성을 다시 맞춰야 한다.
+# 이전 산출물(deliverables/MoveValue_*.docx)은 덮어쓰지 않는다.
+OUT = ROOT / "deliverables" / "BalueWave_참가신청서_초안.docx"
 SCREENSHOT_DIR = ROOT / "deliverables" / "screenshots"
 
 
 TOKENS = {
     "font": "Malgun Gothic",
     "body_size": 9.5,
-    "heading_green": "0F766E",
+    "heading_accent": "611885",   # C75 M100
     "heading_dark": "17212B",
     "border": "D8DDE2",
-    "header_fill": "EAF7F0",
+    "header_fill": "F4ECF8",
     "muted_fill": "F7F9FB",
     "warning_fill": "FFF7ED",
 }
@@ -97,7 +101,7 @@ def add_heading(doc, text, level=1):
     paragraph = doc.add_paragraph(style=f"Heading {level}")
     run = paragraph.add_run(text)
     size = 15 if level == 1 else 12 if level == 2 else 10.5
-    color = TOKENS["heading_green"] if level <= 2 else TOKENS["heading_dark"]
+    color = TOKENS["heading_accent"] if level <= 2 else TOKENS["heading_dark"]
     set_run_font(run, size, bold=True, color=color)
     paragraph.paragraph_format.space_before = Pt(8 if level == 1 else 4)
     paragraph.paragraph_format.space_after = Pt(4)
@@ -179,12 +183,12 @@ def build():
 
     title = doc.add_paragraph()
     title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = title.add_run("2026 국토교통 서비스 발굴 경연 참가신청서")
+    run = title.add_run("2026 BIG DATA 활용대회 참가신청서")
     set_run_font(run, 18, bold=True, color=TOKENS["heading_dark"])
     subtitle = doc.add_paragraph()
     subtitle.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = subtitle.add_run("MoveValue: 주거-이동 통합 생활권 매칭 서비스")
-    set_run_font(run, 12, bold=True, color=TOKENS["heading_green"])
+    run = subtitle.add_run("BalueWave: 주거-이동 통합 생활권 매칭 서비스")
+    set_run_font(run, 12, bold=True, color=TOKENS["heading_accent"])
     add_paragraph(
         doc,
         "주의: 연락처, 서명, 개인정보 수집·이용 동의는 제출 전 신청자가 직접 확인하고 기재해야 합니다.",
@@ -197,12 +201,12 @@ def build():
     add_kv_table(
         doc,
         [
-            ("신청 기관명", "이승보 / MoveValue 프로젝트팀(개인 참가, 예비창업)"),
+            ("신청 기관명", "이승보 / BalueWave 프로젝트팀(개인 참가, 예비창업)"),
             ("사업 분야", "국토교통 데이터 기반 생활권 추천·부동산·교통 연계 서비스"),
             ("신청 담당자명", "이승보"),
             ("담당자 연락처", "제출 전 기재"),
             ("담당자 이메일", "knightpen@icloud.com"),
-            ("서비스 모델명", "MoveValue: 주거-이동 통합 생활권 매칭 서비스"),
+            ("서비스 모델명", "BalueWave: 주거-이동 통합 생활권 매칭 서비스"),
             ("서비스 사업 분야", "부동산·교통·MaaS·생활 SOC 데이터 융합 서비스"),
             (
                 "산출물(프로토타입)",
@@ -210,14 +214,14 @@ def build():
             ),
             ("소요 예산", "20,000천원"),
             ("소요 기간", "2026.06.20 ~ 2026.08.31(약 2.5개월)"),
-            ("주관 기업(역할)", "MoveValue 프로젝트팀: 서비스 기획, 프로토타입 개발, 데이터 결합·점수화"),
+            ("주관 기업(역할)", "BalueWave 프로젝트팀: 서비스 기획, 프로토타입 개발, 데이터 결합·점수화"),
             ("참여/협력 기업", "협력 후보: 공공데이터 제공기관, 국토교통 데이터 오픈마켓, 부동산 플랫폼, MaaS/교통 데이터 사업자"),
         ],
     )
 
-    add_heading(doc, "2. 국토교통 분야 실증서비스 모델 구현 기획서", 1)
+    add_heading(doc, "2. 빅데이터 분석·시각화 서비스 모델 기획서", 1)
     add_heading(doc, "서비스 모델명 및 분야", 2)
-    add_paragraph(doc, "MoveValue: 주거-이동 통합 생활권 매칭 서비스")
+    add_paragraph(doc, "BalueWave: 주거-이동 통합 생활권 매칭 서비스")
     add_paragraph(doc, "분야: 국토교통 데이터 융합, 생활권 추천, 부동산·교통 연계 서비스")
 
     add_heading(doc, "서비스 제공 대상", 2)
@@ -229,7 +233,7 @@ def build():
     add_heading(doc, "실증서비스 아이디어 모델 개요", 2)
     add_paragraph(
         doc,
-        "MoveValue는 사용자의 월 주거 예산, 출퇴근 목적지, 생활 인프라 선호도, 가구 유형, 계약 조건을 기반으로 적합한 생활권과 주거 후보지를 추천합니다. 단순 부동산 가격 검색을 넘어 주거비, 이동시간, 교통 접근성, 생활 SOC, 안전·환경 지표, 전세 위험 신호를 통합 분석합니다.",
+        "BalueWave는 사용자의 월 주거 예산, 출퇴근 목적지, 생활 인프라 선호도, 가구 유형, 계약 조건을 기반으로 적합한 생활권과 주거 후보지를 추천합니다. 단순 부동산 가격 검색을 넘어 주거비, 이동시간, 교통 접근성, 생활 SOC, 안전·환경 지표, 전세 위험 신호를 통합 분석합니다.",
     )
     add_bullets(
         doc,
@@ -258,13 +262,13 @@ def build():
     )
     add_paragraph(
         doc,
-        "국토교통 분야에는 실거래가, 공시가격, 건축물대장, 지오코딩, 도시철도, 생활 SOC 데이터가 존재합니다. MoveValue는 이 데이터를 사용자가 실제로 이해할 수 있는 지도, 점수, 설명형 Agent로 연결해 국민 체감형 주거 의사결정 서비스를 만드는 것을 목표로 합니다.",
+        "국토교통 분야에는 실거래가, 공시가격, 건축물대장, 지오코딩, 도시철도, 생활 SOC 데이터가 존재합니다. BalueWave는 이 데이터를 사용자가 실제로 이해할 수 있는 지도, 점수, 설명형 Agent로 연결해 국민 체감형 주거 의사결정 서비스를 만드는 것을 목표로 합니다.",
     )
 
-    add_heading(doc, "기존 서비스와 MoveValue 비교표", 2)
+    add_heading(doc, "기존 서비스와 BalueWave 비교표", 2)
     add_table(
         doc,
-        ["구분", "기존 부동산 서비스", "MoveValue"],
+        ["구분", "기존 부동산 서비스", "BalueWave"],
         [
             ("탐색 기준", "매물 가격, 위치, 면적 중심", "주거비, 통근시간, 생활 SOC, 안전환경, 전세 위험 신호 통합"),
             ("추천 방식", "사용자가 조건을 직접 필터링", "사용자 예산·목적지·가구 유형·가중치 기반 점수화"),
@@ -278,7 +282,7 @@ def build():
     add_heading(doc, "사용자 문제점과 해결 기능 매핑표", 2)
     add_table(
         doc,
-        ["사용자 문제", "MoveValue 해결 기능", "제공 가치"],
+        ["사용자 문제", "BalueWave 해결 기능", "제공 가치"],
         [
             ("주거비와 통근 부담을 따로 계산해야 함", "예산·목적지 기반 추천 점수", "월 주거비와 이동 부담을 함께 비교"),
             ("후보 지역의 생활 인프라 확인이 번거로움", "병원·학교·공원 반경 집계", "생활권 접근성을 수치와 근거로 확인"),
@@ -291,7 +295,7 @@ def build():
     add_heading(doc, "차별성", 2)
     add_paragraph(
         doc,
-        "기존 부동산 플랫폼은 매물 검색과 가격 확인 중심이지만, MoveValue는 실제 거주 이후 발생하는 이동 부담, 생활 접근성, 주거 안정성까지 함께 분석합니다. 또한 추천 결과를 블랙박스로 보여주지 않고, 주거비·교통·생활 SOC·안전·전세 위험도 등 항목별 근거를 설명합니다.",
+        "기존 부동산 플랫폼은 매물 검색과 가격 확인 중심이지만, BalueWave는 실제 거주 이후 발생하는 이동 부담, 생활 접근성, 주거 안정성까지 함께 분석합니다. 또한 추천 결과를 블랙박스로 보여주지 않고, 주거비·교통·생활 SOC·안전·전세 위험도 등 항목별 근거를 설명합니다.",
     )
     add_paragraph(
         doc,
@@ -320,7 +324,7 @@ def build():
         doc,
         ["기능", "구현 상태", "근거 파일"],
         [
-            ("지도 기반 아파트 매칭", "구현 완료", "app/app.js, api/movevalue_api.py"),
+            ("지도 기반 아파트 매칭", "구현 완료", "app/app.js, api/baluewave_api.py"),
             ("부동산 상세 대시보드", "구현 완료", "api/property_model.py, app/app.js"),
             ("전세 위험 신호", "구현 완료", "api/property_model.py"),
             ("AI Agent 질의응답", "구현 완료", "api/property_model.py, app/app.js"),
@@ -364,7 +368,7 @@ def build():
         ["계층", "역할", "주요 API/파일"],
         [
             ("Web UI", "조건 입력, 지도, 상세 패널, 비교, Agent UI", "app/index.html, app/app.js, app/styles.css"),
-            ("API Router", "정적 파일과 JSON API 제공", "api/movevalue_api.py"),
+            ("API Router", "정적 파일과 JSON API 제공", "api/baluewave_api.py"),
             ("Route Adapter", "Kakao/ODsay/TMAP/폴백 경로", "api/route_adapters.py"),
             ("Apartment Adapter", "OpenAptInfo live/스냅샷 단지 레이어", "api/apartment_adapters.py"),
             ("Price Adapter", "MOLIT 매매·전월세 live 보정", "api/real_estate_price_adapters.py"),
@@ -451,7 +455,7 @@ def build():
     add_kv_table(
         doc,
         [
-            ("기관명", "이승보 / MoveValue 프로젝트팀"),
+            ("기관명", "이승보 / BalueWave 프로젝트팀"),
             ("신청자(대표) 성명", "이승보"),
             ("서명", "제출 전 직접 서명"),
         ],

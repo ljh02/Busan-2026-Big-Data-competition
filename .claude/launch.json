@@ -2,14 +2,14 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "movevalue",
+      "name": "baluewave",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["api/movevalue_api.py", "--port", "5173"],
+      "runtimeArgs": ["api/baluewave_api.py", "--port", "5173"],
       "port": 5173,
       "autoPort": false
     },
     {
-      "name": "movevalue-static",
+      "name": "baluewave-static",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8788", "-d", "site"],
       "port": 8788
