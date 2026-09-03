@@ -4754,23 +4754,25 @@ body.entrance-open .agent-launcher { display: none; }
 .tut-points.is-stacked .tut-line { display: block; }
 
 /* ── AI Agent 안내 — 메인 첫 진입에 우측 상단 런처를 짚는다 (tutorial.js showAgentHint)
-   런처는 fixed top:18px right:18px, 높이 ~44px. 말풍선은 그 아래에 붙고 꼬리가 위를 본다. */
+   위치는 CSS 로 못 박지 않는다. 런처 높이·폭이 글꼴에 따라 변하므로 JS 가 런처의
+   실제 사각형을 재서 top/right 와 꼬리 위치(--tail-right)를 인라인으로 넣는다.
+   말풍선은 런처보다 약하게 — 연한 회색 선. 강조는 런처의 마젠타 링이 맡는다. */
 .agent-hint {
   position: fixed;
-  top: 74px;
+  top: 74px;              /* JS 가 덮어쓴다 */
   right: 18px;
   z-index: 1341;
   display: flex;
   align-items: center;
-  gap: 10px;
-  max-width: 320px;
-  padding: 10px 8px 10px 12px;
-  border: 2px solid var(--point);
-  border-radius: 14px;
+  gap: 6px;
+  max-width: 260px;
+  padding: 7px 4px 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
   background: #fff;
-  box-shadow: var(--shadow-strong);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
   color: var(--ink);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 800;
   line-height: 1.4;
   word-break: keep-all;
@@ -4778,52 +4780,60 @@ body.entrance-open .agent-launcher { display: none; }
 .agent-hint::before {
   content: "";
   position: absolute;
-  top: -9px;
-  right: 40px;
-  width: 14px;
-  height: 14px;
-  border-top: 2px solid var(--point);
-  border-left: 2px solid var(--point);
+  top: -6px;
+  right: var(--tail-right, 40px);
+  width: 10px;
+  height: 10px;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
   background: #fff;
   transform: rotate(45deg);
-}
-.agent-hint img {
-  flex: 0 0 auto;
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-purple) 100%);
-  object-fit: contain;
 }
 .agent-hint p { margin: 0; }
 .agent-hint-close {
   flex: 0 0 auto;
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  margin-left: 2px;
+  width: 24px;
+  height: 24px;
   padding: 0;
   border: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: transparent;
   color: var(--muted);
-  font-size: 20px;
+  font-size: 17px;
   line-height: 1;
   cursor: pointer;
 }
-.agent-hint-close:hover { background: var(--point-soft); color: var(--point); }
+.agent-hint-close:hover { background: #f1f5f9; color: var(--ink); }
 body.entrance-open .agent-hint { display: none; }
 
-/* 런처 강조 — 마젠타 테두리 + 둘레 맥동 3회. 기존 그림자는 유지한 채 링만 덧씌운다 */
+/* 런처 강조 — 굵은 마젠타 선 + 바깥으로 갈수록 옅어지는 글로우.
+   0%/100% 가 정지 상태라, 3회 맥동이 끝나면(fill-mode forwards) 그 글로우로 머문다. */
 @keyframes agent-hint-ring {
-  0% { box-shadow: var(--shadow-strong), 0 0 0 0 rgba(var(--brand-magenta-rgb), 0.55); }
-  70% { box-shadow: var(--shadow-strong), 0 0 0 18px rgba(var(--brand-magenta-rgb), 0); }
-  100% { box-shadow: var(--shadow-strong), 0 0 0 0 rgba(var(--brand-magenta-rgb), 0); }
+  0%, 100% {
+    box-shadow:
+      var(--shadow-strong),
+      0 0 0 2px rgba(var(--brand-magenta-rgb), 0.9),
+      0 0 0 5px rgba(var(--brand-magenta-rgb), 0.32),
+      0 0 14px 8px rgba(var(--brand-magenta-rgb), 0.22);
+  }
+  50% {
+    box-shadow:
+      var(--shadow-strong),
+      0 0 0 2px rgba(var(--brand-magenta-rgb), 0.9),
+      0 0 0 9px rgba(var(--brand-magenta-rgb), 0.22),
+      0 0 26px 14px rgba(var(--brand-magenta-rgb), 0.16);
+  }
 }
 .agent-launcher.is-hinting {
-  border-color: var(--point);
-  animation: agent-hint-ring 1.3s ease-out 3;
+  border: 2px solid var(--point);
+  box-shadow:
+    var(--shadow-strong),
+    0 0 0 2px rgba(var(--brand-magenta-rgb), 0.9),
+    0 0 0 5px rgba(var(--brand-magenta-rgb), 0.32),
+    0 0 14px 8px rgba(var(--brand-magenta-rgb), 0.22);
+  animation: agent-hint-ring 1.3s ease-out 3 forwards;
 }
 @media (prefers-reduced-motion: reduce) {
   .agent-launcher.is-hinting { animation: none; }

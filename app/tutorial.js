@@ -292,16 +292,27 @@
     hint.className = "agent-hint mascot-pop";
     hint.setAttribute("role", "status");
     hint.innerHTML = `
-      <img src="./assets/baluewave-mark.png" alt="" aria-hidden="true" width="123" height="123">
       <p>궁금한 점은 저에게 물어보세요!</p>
       <button type="button" class="agent-hint-close" aria-label="안내 닫기">&times;</button>`;
     document.body.appendChild(hint);
     launcher.classList.add("is-hinting");
 
+    /* 런처 사각형을 재서 그 아래에 붙인다 — 런처 크기는 글꼴·문구에 따라 변한다.
+       꼬리는 런처 가로 중앙을 가리킨다. */
+    const place = () => {
+      const r = launcher.getBoundingClientRect();
+      hint.style.top = `${Math.round(r.bottom + 12)}px`;
+      hint.style.right = `${Math.round(window.innerWidth - r.right)}px`;
+      hint.style.setProperty("--tail-right", `${Math.round(r.width / 2 - 5)}px`);
+    };
+    place();
+    window.addEventListener("resize", place);
+
     const dismiss = () => {
       hint.remove();
       launcher.classList.remove("is-hinting");
       launcher.removeEventListener("click", dismiss);
+      window.removeEventListener("resize", place);
       try { sessionStorage.setItem(HINT_KEY, "1"); } catch (_) { /* 저장 불가 환경 */ }
     };
     hint.querySelector(".agent-hint-close").addEventListener("click", dismiss);
