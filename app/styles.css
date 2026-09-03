@@ -237,7 +237,7 @@ h4 {
   place-items: center;
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(0, 135, 205, 0.35);
+  border: 1px solid rgba(var(--brand-purple-rgb), 0.35);
   border-radius: 10px;
   background: var(--naver-soft);
   color: var(--naver-strong);
@@ -373,7 +373,7 @@ h4 {
 }
 
 .icon-button:hover {
-  border-color: rgba(0, 135, 205, 0.42);
+  border-color: rgba(var(--brand-purple-rgb), 0.42);
   background: var(--naver-soft);
 }
 
@@ -764,7 +764,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .segmented input:checked + span {
-  border-color: rgba(0, 135, 205, 0.55);
+  border-color: var(--brand-purple);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -830,7 +830,7 @@ input[type="range"]::-moz-range-thumb {
 
 .nav-status.is-online,
 .map-layer-status.is-ready {
-  border-color: rgba(0, 135, 205, 0.35);
+  border-color: rgba(var(--brand-purple-rgb), 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -960,7 +960,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 .ghost-button:hover {
-  border-color: rgba(0, 135, 205, 0.5);
+  border-color: rgba(var(--brand-purple-rgb), 0.5);
   background: var(--naver-soft);
 }
 
@@ -1337,7 +1337,7 @@ details > summary span {
 
 .infrastructure-item:hover,
 .infrastructure-item.is-active {
-  border-color: rgba(0, 135, 205, 0.55);
+  border-color: rgba(var(--brand-purple-rgb), 0.55);
   background: var(--naver-soft);
 }
 
@@ -2512,7 +2512,7 @@ details > summary span {
 }
 
 .agent-followup:hover {
-  border-color: var(--naver);
+  border-color: var(--brand-purple);
   color: var(--naver-strong);
   background: var(--naver-soft);
 }
@@ -2856,7 +2856,7 @@ details > summary span {
 }
 
 .property-master-item:hover {
-  border-color: var(--naver);
+  border-color: var(--brand-purple);
   background: var(--naver-soft);
 }
 
@@ -2937,7 +2937,7 @@ details > summary span {
 }
 
 .section-badge.tone-safe {
-  border-color: rgba(0, 135, 205, 0.35);
+  border-color: rgba(var(--brand-purple-rgb), 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -2983,7 +2983,7 @@ details > summary span {
 }
 
 .risk-pill.safe {
-  border-color: rgba(0, 135, 205, 0.35);
+  border-color: rgba(var(--brand-purple-rgb), 0.35);
   background: var(--naver-soft);
   color: var(--naver-strong);
 }
@@ -3019,7 +3019,7 @@ details > summary span {
 }
 
 .price-live-status-item.is-live {
-  border-color: rgba(0, 135, 205, 0.35);
+  border-color: rgba(var(--brand-purple-rgb), 0.35);
   background: var(--naver-soft);
 }
 
@@ -3111,7 +3111,7 @@ details > summary span {
 }
 
 .gaptong-verdict.tone-safe {
-  border-color: rgba(0, 135, 205, 0.34);
+  border-color: rgba(var(--brand-purple-rgb), 0.34);
   background: var(--naver-soft);
 }
 
@@ -3226,7 +3226,7 @@ details > summary span {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  border-color: rgba(0, 135, 205, 0.28);
+  border-color: rgba(var(--brand-purple-rgb), 0.28);
   background: var(--naver-soft);
 }
 
@@ -3834,7 +3834,7 @@ details > summary span {
 }
 
 .agent-followup:hover {
-  border-color: var(--naver);
+  border-color: var(--brand-purple);
   color: var(--naver-strong);
   background: var(--naver-soft);
 }
@@ -3903,7 +3903,7 @@ details > summary span {
 }
 
 .gaptong-verdict.tone-safe {
-  border-color: rgba(0, 135, 205, 0.34);
+  border-color: rgba(var(--brand-purple-rgb), 0.34);
   background: var(--naver-soft);
 }
 
@@ -4021,7 +4021,7 @@ details > summary span {
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  border-color: rgba(0, 135, 205, 0.28);
+  border-color: rgba(var(--brand-purple-rgb), 0.28);
   background: var(--naver-soft);
 }
 
