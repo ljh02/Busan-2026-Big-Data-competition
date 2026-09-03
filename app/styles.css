@@ -28,6 +28,7 @@
   --accent-soft: #f3eaf7;
   --point: var(--brand-magenta);
   --point-soft: #fde7f2;
+  --blue-soft: #e6f2fa;
   --blue: var(--brand-navy);
   --bus: #386de8;
   --walk: #64748b;
@@ -772,6 +773,14 @@ input[type="range"]::-moz-range-thumb {
 
 .budget-mode-selector {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* 가구 유형은 파랑 계열로 둔다. 예산 기준(보라)과 성격이 달라
+   같은 .segmented 를 쓰면서도 색으로 구분되게 한다. */
+.persona-selector input:checked + span {
+  border-color: var(--brand-navy);
+  background: var(--blue-soft);
+  color: var(--brand-navy);
 }
 
 .weights {
