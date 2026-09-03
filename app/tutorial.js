@@ -59,10 +59,10 @@
       bubble: "사용법은 네 걸음이에요.",
       lead: "왼쪽 사이드바에서 시작해 오른쪽 지도와 상세 패널로 이어져요.",
       points: [
-        { head: "조건 입력", body: "예산, 회사 주소, 가구 유형과 통근·주거비·SOC·안전 가중치를 내 기준대로 조절해요." },
-        { head: "매칭 확인", body: "조건에 맞는 단지를 점수 순 랭킹으로, 지도에서 위치와 함께 확인해요." },
-        { head: "상세 검증", body: "가격·주변 인프라·교통편·전세 위험 신호를 대시보드로 점검해요." },
-        { head: "비교·상담", body: "즐겨찾기한 아파트를 나란히 비교하고, AI Agent에게 판단 근거를 물어봐요." }
+        { head: "조건 입력", body: ["예산, 회사 주소, 가구 유형을 고르고", "통근·주거비·SOC·안전 가중치를 내 기준대로 조절해요."] },
+        { head: "매칭 확인", body: ["조건에 맞는 단지를 점수 순 랭킹으로,", "지도에서 위치와 함께 확인해요."] },
+        { head: "상세 검증", body: ["가격·주변 인프라·교통편·전세 위험 신호를", "대시보드로 점검해요."] },
+        { head: "비교·상담", body: ["즐겨찾기한 아파트를 나란히 비교하고,", "AI Agent에게 판단 근거를 물어봐요."] }
       ],
       visual: "steps"
     },
@@ -82,9 +82,9 @@
       bubble: "추천 카드나 지도 마커를 누르면 상세 패널이 열려요.",
       lead: "매칭 결과 · 아파트 정보 · 출퇴근 경로 · 주변 인프라 · 전세 위험 점검, 다섯 탭으로 나눠 보여드려요.",
       points: [
-        { head: "항목별 점수", body: "통근·주거비·생활 SOC·안전 점수와 AI 요약으로 왜 추천됐는지 확인해요." },
-        { head: "가격과 위험", body: "매매가·전세가·월세와 전세가율, 깡통전세 위험 신호를 함께 봐요." },
-        { head: "경로와 인프라", body: "목적지까지 경로와 시간, 반경 안의 병원·학교·공원을 지도에서 확인해요." }
+        { head: "항목별 점수", body: ["통근·주거비·생활 SOC·안전 점수를 확인하고,", "AI 요약으로 왜 추천됐는지 읽어요."] },
+        { head: "가격과 위험", body: ["매매가·전세가·월세와 전세가율,", "깡통전세 위험 신호를 함께 봐요."] },
+        { head: "경로와 인프라", body: ["목적지까지 경로와 시간을 보고,", "반경 안의 병원·학교·공원을 지도에서 확인해요."] }
       ],
       visual: "list"
     },
@@ -95,9 +95,9 @@
       bubble: "저는 화면 오른쪽 위에 있을게요. 궁금하면 눌러 주세요.",
       lead: "즐겨찾기로 후보를 모아 나란히 비교하고, AI Agent에게 판단 근거를 물어볼 수 있어요.",
       points: [
-        { head: "즐겨찾기 비교", body: "카드의 ☆를 누르면 상단 즐겨찾기에 모여요. 매칭 점수·통근·가격·위험도를 한 표로 비교해요." },
-        { head: "AI Agent", body: "\"이 아파트 전세 들어가도 괜찮아?\" 같은 질문에 가격·통근·위험·입지 근거를 나눠 답해요." },
-        { head: "다시 보기", body: "이 안내는 왼쪽 위 BalueWave 로고를 누르면 언제든 다시 열려요." }
+        { head: "즐겨찾기 비교", body: ["카드의 ☆를 누르면 상단 즐겨찾기에 모여요.", "매칭 점수·통근·가격·위험도를 한 표로 비교해요."] },
+        { head: "AI Agent", body: ["\"이 아파트 전세 들어가도 괜찮아?\" 같은 질문을 하면,", "가격·통근·위험·입지 근거를 나눠 답해요."] },
+        { head: "다시 보기", body: ["이 안내는 왼쪽 위 BalueWave 로고를 누르면", "언제든 다시 열려요."] }
       ],
       visual: "list"
     }
@@ -151,13 +151,18 @@
   function renderPoints(s) {
     if (!s.points.length) return "";
     const numbered = s.visual === "steps" || s.visual === "criteria";
-    const cls = "tut-points";
+    /* 1장(기준)은 한 줄에 들어가므로 "머리 — 설명" 인라인. 나머지는 머리를 따로 세우고
+       설명을 문장별 줄로 둔다 — 줄이 어디서 꺾일지를 문장이 정하지, 상자 폭이 정하지 않는다. */
+    const stacked = s.visual !== "criteria";
+    const lines = (b) => (Array.isArray(b) ? b : [b]).map((t) => `<span class="tut-line">${esc(t)}</span>`).join("");
     const items = s.points.map((p, i) => `
       <li>
         ${numbered ? `<span class="tut-num">${i + 1}</span>` : `<span class="tut-dot" aria-hidden="true"></span>`}
-        <span><strong>${esc(p.head)}</strong><span class="tut-body"> — ${esc(p.body)}</span></span>
+        ${stacked
+          ? `<span class="tut-text"><strong>${esc(p.head)}</strong><span class="tut-body">${lines(p.body)}</span></span>`
+          : `<span class="tut-text"><strong>${esc(p.head)}</strong><span class="tut-body"> — ${esc(Array.isArray(p.body) ? p.body.join(" ") : p.body)}</span></span>`}
       </li>`).join("");
-    return `<ul class="${cls}">${items}</ul>`;
+    return `<ul class="tut-points${stacked ? " is-stacked" : ""}">${items}</ul>`;
   }
 
   function renderCard() {
@@ -269,6 +274,38 @@
     els.root.hidden = true;
     document.body.classList.remove("entrance-open");
     try { sessionStorage.setItem(SEEN_KEY, "1"); } catch (_) { /* 저장 불가 환경 */ }
+    /* 오버레이가 걷힌 뒤에 — 동시에 뜨면 무엇을 가리키는지 안 읽힌다 */
+    window.setTimeout(showAgentHint, 380);
+  }
+
+  /* ── AI Agent 안내 — 메인 화면 첫 진입에 한 번, 우측 상단 런처를 짚는다 ──
+     말풍선(X 로 닫음) + 런처 둘레 마젠타 맥동 3회. 런처를 직접 누르면 찾은 것이므로 함께 닫는다. */
+  const HINT_KEY = "baluewave-agent-hint-seen";
+
+  function showAgentHint() {
+    const launcher = $("agentLauncher");
+    if (!launcher || launcher.hidden || $("agentHint")) return;
+    try { if (sessionStorage.getItem(HINT_KEY) === "1") return; } catch (_) { /* 저장 불가 환경 */ }
+
+    const hint = document.createElement("div");
+    hint.id = "agentHint";
+    hint.className = "agent-hint mascot-pop";
+    hint.setAttribute("role", "status");
+    hint.innerHTML = `
+      <img src="./assets/baluewave-mark.png" alt="" aria-hidden="true" width="123" height="123">
+      <p>궁금한 점은 저에게 물어보세요!</p>
+      <button type="button" class="agent-hint-close" aria-label="안내 닫기">&times;</button>`;
+    document.body.appendChild(hint);
+    launcher.classList.add("is-hinting");
+
+    const dismiss = () => {
+      hint.remove();
+      launcher.classList.remove("is-hinting");
+      launcher.removeEventListener("click", dismiss);
+      try { sessionStorage.setItem(HINT_KEY, "1"); } catch (_) { /* 저장 불가 환경 */ }
+    };
+    hint.querySelector(".agent-hint-close").addEventListener("click", dismiss);
+    launcher.addEventListener("click", dismiss);
   }
 
   function seen() {

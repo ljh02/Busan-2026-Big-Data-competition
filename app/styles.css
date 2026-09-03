@@ -4745,3 +4745,86 @@ body.entrance-open .agent-launcher { display: none; }
   .entrance-grid.is-stage2 .entrance-left, .entrance-grid.is-stage2 .entrance-right,
   .mascot-pop, .motion-fade { animation: none !important; transition: none !important; }
 }
+
+/* ── 요점 목록: 머리 따로, 설명은 문장별 줄 ────────────────────────
+   1장(기준)만 "머리 — 설명" 인라인이고, 2·4·5장은 is-stacked. 줄이 어디서
+   꺾일지를 문장이 정한다. keep-all 은 그 안에서 어절만 지킨다. */
+.tut-text { display: block; min-width: 0; }
+.tut-points.is-stacked .tut-text strong { display: block; margin-bottom: 2px; }
+.tut-points.is-stacked .tut-line { display: block; }
+
+/* ── AI Agent 안내 — 메인 첫 진입에 우측 상단 런처를 짚는다 (tutorial.js showAgentHint)
+   런처는 fixed top:18px right:18px, 높이 ~44px. 말풍선은 그 아래에 붙고 꼬리가 위를 본다. */
+.agent-hint {
+  position: fixed;
+  top: 74px;
+  right: 18px;
+  z-index: 1341;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 320px;
+  padding: 10px 8px 10px 12px;
+  border: 2px solid var(--point);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-strong);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+.agent-hint::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  right: 40px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid var(--point);
+  border-left: 2px solid var(--point);
+  background: #fff;
+  transform: rotate(45deg);
+}
+.agent-hint img {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--brand-blue) 0%, var(--brand-purple) 100%);
+  object-fit: contain;
+}
+.agent-hint p { margin: 0; }
+.agent-hint-close {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.agent-hint-close:hover { background: var(--point-soft); color: var(--point); }
+body.entrance-open .agent-hint { display: none; }
+
+/* 런처 강조 — 마젠타 테두리 + 둘레 맥동 3회. 기존 그림자는 유지한 채 링만 덧씌운다 */
+@keyframes agent-hint-ring {
+  0% { box-shadow: var(--shadow-strong), 0 0 0 0 rgba(var(--brand-magenta-rgb), 0.55); }
+  70% { box-shadow: var(--shadow-strong), 0 0 0 18px rgba(var(--brand-magenta-rgb), 0); }
+  100% { box-shadow: var(--shadow-strong), 0 0 0 0 rgba(var(--brand-magenta-rgb), 0); }
+}
+.agent-launcher.is-hinting {
+  border-color: var(--point);
+  animation: agent-hint-ring 1.3s ease-out 3;
+}
+@media (prefers-reduced-motion: reduce) {
+  .agent-launcher.is-hinting { animation: none; }
+}
