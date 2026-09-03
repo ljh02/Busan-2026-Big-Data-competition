@@ -278,14 +278,18 @@
     window.setTimeout(showAgentHint, 380);
   }
 
-  /* ── AI Agent 안내 — 메인 화면 첫 진입에 한 번, 우측 상단 런처를 짚는다 ──
-     말풍선(X 로 닫음) + 런처 둘레 마젠타 맥동 3회. 런처를 직접 누르면 찾은 것이므로 함께 닫는다. */
+  /* ── AI Agent 안내 — 입장 씬이 닫힐 때마다 우측 상단 런처를 짚는다 ──
+     말풍선(X 로 닫음) + 런처 둘레 마젠타 맥동 3회. 런처를 직접 누르면 찾은 것이므로 함께 닫는다.
+
+     세션 플래그로 막지 않는다. 입장 씬 자체가 세션에 한 번만 자동으로 열리므로
+     "최초 접속에만"은 그걸로 충족되고, 로고로 튜토리얼을 다시 본 사람은 다시 방향을
+     잡는 중이라 안내를 또 받는 게 맞다. 플래그(HINT_KEY)는 닫은 뒤 마젠타 선을
+     새로고침 뒤에도 유지하는 데만 쓴다. */
   const HINT_KEY = "baluewave-agent-hint-seen";
 
   function showAgentHint() {
     const launcher = $("agentLauncher");
     if (!launcher || launcher.hidden || $("agentHint")) return;
-    try { if (sessionStorage.getItem(HINT_KEY) === "1") return; } catch (_) { /* 저장 불가 환경 */ }
 
     const hint = document.createElement("div");
     hint.id = "agentHint";
