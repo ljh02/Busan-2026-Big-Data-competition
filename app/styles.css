@@ -4328,3 +4328,19 @@ details > summary span {
   margin: 2px auto 9px;
   background: url("./assets/baluewave-character.png") center / contain no-repeat;
 }
+
+/* 브랜드 마크 — "MV" 레터폼을 마스코트로 교체.
+   그라디언트 배지는 유지하고 그 위에 캐릭터를 얹는다. 원본이 머리 크롭이라
+   cover + top 으로 잡아야 아래가 잘려도 얼굴이 남는다. */
+.brand-mark {
+  overflow: hidden;
+  padding: 0;
+  font-size: 0;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
