@@ -15,6 +15,34 @@
     <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
+    <!-- 입장 씬 — 첫 로드에 캐릭터가 인사하고 튜토리얼로 이어진다 (tutorial.js) -->
+    <section id="entrance" class="entrance" aria-label="BalueWave 소개" hidden>
+      <div class="entrance-stage">
+        <h1 class="entrance-title" translate="no">BalueWave</h1>
+        <p class="entrance-tagline">예산·직장·가구 유형만 입력하면, 데이터가 집을 골라줍니다</p>
+        <button type="button" id="entranceSkip" class="entrance-skip">바로 시작하기</button>
+
+        <div id="entranceGrid" class="entrance-grid">
+          <div class="entrance-left">
+            <button type="button" id="mascotButton" class="mascot-btn" aria-label="BalueWave 캐릭터 — 눌러보세요">
+              <span class="mascot-shadow" aria-hidden="true"></span>
+              <span id="mascotTilt" class="mascot-tilt">
+                <span id="mascotBody" class="mascot-body mascot-idle">
+                  <img src="./assets/baluewave-character.png" alt="" width="302" height="447" draggable="false">
+                </span>
+              </span>
+            </button>
+            <p id="entranceHint" class="entrance-hint">캐릭터를 눌러 인사를 받아보세요</p>
+            <div id="mascotBubble" class="mascot-bubble mascot-pop" role="status" hidden>
+              <p class="mascot-bubble-title">안녕하세요! BalueWave 안내를 맡을게요.</p>
+              <p id="bubbleBody" class="mascot-bubble-body"></p>
+            </div>
+          </div>
+          <div id="tutorialMount" class="entrance-right" hidden></div>
+        </div>
+      </div>
+    </section>
+
     <main>
       <section id="recommend" class="workspace anchor-target is-active-view" aria-label="BalueWave 아파트 매칭 화면">
         <aside class="mv-sidebar" aria-label="조건 설정과 매칭 결과">
@@ -247,5 +275,6 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
     <script src="./app.js"></script>
+    <script src="./tutorial.js"></script>
   </body>
 </html>

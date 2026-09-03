@@ -40,7 +40,7 @@ def main() -> None:
     (SITE / "py").mkdir(parents=True)
     (SITE / "data").mkdir()
 
-    assets = {name: digest(ROOT / "app" / name) for name in ("app.js", "styles.css", "static-api.js")}
+    assets = {name: digest(ROOT / "app" / name) for name in ("app.js", "styles.css", "static-api.js", "tutorial.js")}
 
     index = (ROOT / "app" / "index.html").read_text(encoding="utf-8")
     marker = '<script src="./app.js"></script>'
@@ -52,6 +52,9 @@ def main() -> None:
     )
     # 해시를 붙이지 않으면 새 index.html이 캐시된 옛 app.js와 짝을 이뤄
     # 새 탭 마크업만 있고 렌더러가 없는 상태로 깨진다.
+    tut = '<script src="./tutorial.js"></script>'
+    assert tut in index, "tutorial.js script tag not found in app/index.html"
+    index = index.replace(tut, f'<script src="./tutorial.js?v={assets["tutorial.js"]}"></script>')
     css = '<link rel="stylesheet" href="./styles.css">'
     assert css in index, "styles.css link tag not found in app/index.html"
     index = index.replace(css, f'<link rel="stylesheet" href="./styles.css?v={assets["styles.css"]}">')
