@@ -417,7 +417,8 @@ legend {
 }
 
 .budget-input-wrap span {
-  color: var(--naver-strong);
+  /* 박스 배경·테두리가 파랑 계열이라 글자도 진파랑으로 맞춘다. */
+  color: var(--brand-navy);
   line-height: 20px;
 }
 
@@ -429,7 +430,7 @@ legend {
   border: 2px solid rgba(255, 255, 255, 0.96);
   border-radius: 4px;
   background: transparent;
-  color: var(--naver-strong);
+  color: var(--brand-navy);
   font: inherit;
   font-weight: 900;
   line-height: 20px;
