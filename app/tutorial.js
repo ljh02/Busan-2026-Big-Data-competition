@@ -151,7 +151,7 @@
   function renderPoints(s) {
     if (!s.points.length) return "";
     const numbered = s.visual === "steps" || s.visual === "criteria";
-    const cls = s.visual === "criteria" ? "tut-points tut-points-2col" : s.visual === "steps" ? "tut-points" : "tut-points";
+    const cls = "tut-points";
     const items = s.points.map((p, i) => `
       <li>
         ${numbered ? `<span class="tut-num">${i + 1}</span>` : `<span class="tut-dot" aria-hidden="true"></span>`}
