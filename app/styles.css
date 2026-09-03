@@ -4365,21 +4365,25 @@ details > summary span {
   position: fixed;
   inset: 0;
   z-index: 2000;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-  padding: 56px 16px 32px;
+  padding: 32px 16px;
   background: var(--bg);
   color: var(--ink);
 }
 .entrance[hidden] { display: none; }
 body.entrance-open .agent-launcher { display: none; }
 
+/* 세로 중앙 — auto 마진은 자리가 남을 때만 가운데로 밀고, 내용이 화면보다 길면
+   0 으로 접혀 위가 잘리지 않는다. align-items:center 로 하면 넘칠 때 상단이 잘린다. */
 .entrance-stage {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 72rem;
-  margin: 0 auto;
+  margin: auto;
 }
 
 /* 워드마크는 첫 화면의 주인공 — 콘솔 제목보다 두 단계 크게 */
